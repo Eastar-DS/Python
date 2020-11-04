@@ -34,11 +34,14 @@ print('_'*40)
 test_df.info()
 
 train_df.describe()
+train_df.describe(include=['O'])
 '''
 train_df['Fare'].describe() 원하는데이터 describe사용하기
 describe 사용시 top : 가장 많이나온 데이터, freq  : top이 나온 빈도수
  include = 'all' 사용시  NaN이 나오는 이유는 number형과 object형을 
  동시에 나타내려고 하니 한쪽에서 표시가 안됨.
+ include = 'O' 알파벳 O임. 오브젝트형만 가져와서 표시하라는것. 
+ 그래서 통계적 수치가 없구나!
  '''
 
 
