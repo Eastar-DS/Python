@@ -29,12 +29,13 @@ print(train_df.columns.values)
 train_df.head()
 train_df.tail()
 
-train_df.info()
-print('_'*40)
-test_df.info()
 
-train_df.describe()
-train_df.describe(include=['O'])
+# train_df.info()
+# print('_'*40)
+# test_df.info()
+
+# train_df.describe()
+# train_df.describe(include=['O'])
 
 
 '''
@@ -49,10 +50,6 @@ describe 사용시 top : 가장 많이나온 데이터, freq  : top이 나온 �
  의 형태로 쓰면됨.
 '''
 
-
-
-
-
 train_df[['Pclass', 'Survived']].groupby(['Pclass'], as_index=False)\
     .mean().sort_values(by='Survived', ascending=False)
 
@@ -64,22 +61,16 @@ train_df[["SibSp", "Survived"]].groupby(['SibSp'], as_index=False)\
     
 train_df[["Parch", "Survived"]].groupby(['Parch'], as_index=False)\
     .mean().sort_values(by='Survived', ascending=False)
-
-
-
-
-
-
     
 '''
- train_df.group_by() 만하면 데이터가 안보임. 
- train_df.group_by(['Pclass']).size()
+ train_df.groupby() 만하면 데이터가 안보임. 
+ train_df.groupby(['Pclass']).size()
 Pclass
 1    216
 2    184
 3    491
 dtype: int64
- train_df.group_by(['Pclass']).sum() 
+ train_df.groupby(['Pclass']).sum() 
  : Pclass가 1인 데이터들의 다른 label들(Survived) 값을 모두 합함.
         Survived      Age
 Pclass                   
@@ -87,7 +78,7 @@ Pclass
 2             87  5168.83
 3            119  8924.92
 
- train_df.group_by().mean()
+ train_df.groupby().mean()
  : Pclass가 1인 데이터들의 다른 label들(Survived) 값들의 평균.
         Survived        Age
 Pclass                     
@@ -95,7 +86,7 @@ Pclass
 2       0.472826  29.877630
 3       0.242363  25.140620
 
-train_df.group_by().sum().sort_values(by='Age', ascending=False)
+train_df.groupby().sum().sort_values(by='Age', ascending=False)
         Survived      Age
 Pclass                   
 3            119  8924.92
@@ -105,7 +96,9 @@ Pclass
  '''
 
 
-
+#train_df[['Age','Survived']] 에서 나이로 그룹짓고 얼마나 생존했는지 보고싶다.
+g = sns.FacetGrid(train_df, col='Survived')
+g.map(plt.hist, 'Age', bins=40)
 
 
 

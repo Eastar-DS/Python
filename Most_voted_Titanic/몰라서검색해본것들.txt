@@ -1,3 +1,8 @@
+한줄주석# 여러줄'''
+
+줄바꿔도 코드돌아가게하기 : \
+
+
 train_df['Fare'].describe() 원하는데이터 describe사용하기
 
 describe 사용시 top : 가장 많이나온 데이터, freq  : top이 나온 빈도수
