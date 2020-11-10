@@ -101,7 +101,7 @@ g = sns.FacetGrid(train_df, col='Survived')
 g.map(plt.hist, 'Age', bins=40)
 
 
-
+  #
 
 
 
