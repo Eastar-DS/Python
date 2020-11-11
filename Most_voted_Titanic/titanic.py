@@ -241,6 +241,7 @@ guess_ages
 for dataset in combine:
     for i in range(0, 2):
         for j in range(0, 3):
+            #median값을 구하기위해서 null값을 없애줌
             guess_df = dataset[(dataset['Sex'] == i) & \
                                   (dataset['Pclass'] == j+1)]['Age'].dropna()
 
@@ -261,6 +262,76 @@ for dataset in combine:
     dataset['Age'] = dataset['Age'].astype(int)
 
 train_df.head()
+'''
+Pclass와 Sex가 같은 데이터들을 모아 Age값의 평균을 뽑아서 df를 만든다.(2,3인 이유는 성별2, Pclass3)
+for문을 이용해 Pclass와 Sex가 같은 데이터들중 손실된 Age값에 위에서만든 df에 있는값을 넣어준다.
+'''
+
+train_df['AgeBand'] = pd.cut(train_df['Age'], 5)
+train_df[['AgeBand', 'Survived']].groupby(['AgeBand'], as_index=False)\
+    .mean().sort_values(by='AgeBand', ascending=True)
+'''
+            AgeBand  Survived
+0    (0.34, 16.336]  0.550000
+1  (16.336, 32.252]  0.369942
+2  (32.252, 48.168]  0.404255
+3  (48.168, 64.084]  0.434783
+4    (64.084, 80.0]  0.090909
+
+동일한 범위의 5개구간으로 나뉨.
+qcut() 사용시 동일하지 않은 범위로 같은 개수의 데이터를 묶어서 나눔.
+'''
+
+for dataset in combine:    
+    dataset.loc[ dataset['Age'] <= 16, 'Age'] = 0
+    dataset.loc[(dataset['Age'] > 16) & (dataset['Age'] <= 32), 'Age'] = 1
+    dataset.loc[(dataset['Age'] > 32) & (dataset['Age'] <= 48), 'Age'] = 2
+    dataset.loc[(dataset['Age'] > 48) & (dataset['Age'] <= 64), 'Age'] = 3
+    dataset.loc[ dataset['Age'] > 64, 'Age']
+train_df.head()
+
+train_df = train_df.drop(['AgeBand'], axis=1)
+combine = [train_df, test_df]
+train_df.head()
+
+#SibSp 나 Parch는 동승자이므로 두특성을 합쳐버리자.
+for dataset in combine:
+    dataset['FamilySize'] = dataset['SibSp'] + dataset['Parch'] + 1
+
+train_df[['FamilySize', 'Survived']].groupby(['FamilySize'], as_index=False)\
+    .mean().sort_values(by='Survived', ascending=False)
+
+
+#IsAlone 만들기
+for dataset in combine:
+    dataset['IsAlone'] = 0
+    dataset.loc[dataset['FamilySize'] == 1, 'IsAlone'] = 1
+
+train_df[['IsAlone', 'Survived']].groupby(['IsAlone'], as_index=False).mean()
+
+
+train_df = train_df.drop(['Parch', 'SibSp', 'FamilySize'], axis=1)
+test_df = test_df.drop(['Parch', 'SibSp', 'FamilySize'], axis=1)
+combine = [train_df, test_df]
+
+train_df.head()
+
+
+#Age * Pclass 굳이 합쳐야?
+for dataset in combine:
+    dataset['Age*Class'] = dataset.Age * dataset.Pclass
+
+train_df.loc[:, ['Age*Class', 'Age', 'Pclass']].head(10)
+
+
+
+
+
+
+
+
+
+
 
 
 
