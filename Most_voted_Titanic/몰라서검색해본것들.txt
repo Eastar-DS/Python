@@ -11,8 +11,9 @@ describe 사용시 top : 가장 많이나온 데이터, freq  : top이 나온 �
 
  include = 'O' 알파벳 O임. 오브젝트형만 가져와서 표시하라는것.  그래서 통계적 수치가 없구나!
 
-Embarked == 'Q'인 데이터만 보기위해서는 어떻게해야할까? Q인 데이터를 모두 출력하지는 못하지만 train_df['Embarked'].value_counts()를 통해 각각 몇개의 데이터가 있는지 확인.
-
+Embarked == 'Q'인 데이터만 보기위해서는 어떻게해야할까? 
+Q인 데이터를 모두 출력하지는 못하지만 train_df['Embarked'].value_counts()를 통해 각각 몇개의 데이터가 있는지 확인.
+train_df[train_df['Embarked'] == 'Q'] 를 이용하면 된다!
 
 -----------
 
