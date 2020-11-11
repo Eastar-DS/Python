@@ -137,6 +137,104 @@ combine = [train_df, test_df]
 
 
 
+#Title feature 생성하기
+for dataset in combine:
+    dataset['Title'] = dataset.Name.str.extract(' ([A-Za-z]+)\.', expand=False)
+
+pd.crosstab(train_df['Title'], train_df['Sex'])
+
+'''
+pd.crosstab(행의특성, 열의특성)
+pd.crosstab(train_df['Title'], train_df['Sex'])
+Sex       female  male
+Title                 
+Capt           0     1
+Col            0     2
+Countess       1     0
+Don            0     1
+Dr             1     6
+Jonkheer       0     1
+Lady           1     0
+Major          0     2
+Master         0    40
+Miss         182     0
+Mlle           2     0
+Mme            1     0
+Mr             0   517
+Mrs          125     0
+Ms             1     0
+Rev            0     6
+Sir            0     1
+'''
+for dataset in combine:
+    dataset['Title'] = dataset['Title'].replace(['Lady', 'Countess','Capt', 'Col',\
+ 	'Don', 'Dr', 'Major', 'Rev', 'Sir', 'Jonkheer', 'Dona'], 'Rare')
+
+    dataset['Title'] = dataset['Title'].replace('Mlle', 'Miss')
+    dataset['Title'] = dataset['Title'].replace('Ms', 'Miss')
+    dataset['Title'] = dataset['Title'].replace('Mme', 'Mrs')
+    
+train_df[['Title', 'Survived']].groupby(['Title'], as_index=False).mean()
+'''
+train_df[['Title', 'Survived']].groupby(['Title'], as_index=False).mean()
+    Title  Survived
+0  Master  0.575000
+1    Miss  0.702703
+2      Mr  0.156673
+3     Mrs  0.793651
+4    Rare  0.347826
+
+train_df['Title'].value_counts()
+Mr        517
+Miss      185
+Mrs       126
+Master     40
+Rare       23
+'''
+
+
+title_mapping = {"Mr": 1, "Miss": 2, "Mrs": 3, "Master": 4, "Rare": 5}
+for dataset in combine:
+    dataset['Title'] = dataset['Title'].map(title_mapping)
+    dataset['Title'] = dataset['Title'].fillna(0)
+
+train_df.head()
+'''
+   PassengerId  Survived  Pclass  ...     Fare Embarked  Title
+0            1         0       3  ...   7.2500        S      1
+1            2         1       1  ...  71.2833        C      3
+2            3         1       3  ...   7.9250        S      2
+3            4         1       1  ...  53.1000        S      3
+4            5         0       3  ...   8.0500        S      1
+
+map함수는 반드시 series 형태에 써야하므로 dataset['Title']에 사용하게 되는것.
+'''
+
+#Name, PassengerID 특성(Feature) 없애기
+train_df = train_df.drop(['Name', 'PassengerId'], axis=1)
+test_df = test_df.drop(['Name'], axis=1)
+combine = [train_df, test_df]
+train_df.shape, test_df.shape
+'''
+pd.drop()에서 열의 데이터를 삭제할때는 꼭!!! axis=1 또는 axis='columns'
+를 입력해주어야함. 
+원래 데이터프레임에서는 drop하고싶지 않다면 inplace = True 를 적어주도록하자.
+'''
+
+#Categorical data들 Numerical data로 바꾸기
+for dataset in combine:
+    dataset['Sex'] = dataset['Sex'].map( {'female': 1, 'male': 0} ).astype(int)
+
+train_df.head()
+
+
+
+
+
+
+
+
+
 
 
 
