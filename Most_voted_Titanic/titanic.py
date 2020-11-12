@@ -128,6 +128,10 @@ grid.map(sns.barplot, 'Sex', 'Fare', alpha=.5, ci=None)
 grid.add_legend()
 
 
+
+#-------------------------------------------------------------------------------------
+#데이터 전처리시작!
+
 #Feature(Ticket, Cabin) 제거하기
 print("Before", train_df.shape, test_df.shape, combine[0].shape, combine[1].shape)
 train_df = train_df.drop(['Ticket', 'Cabin'], axis=1)
@@ -324,13 +328,71 @@ for dataset in combine:
 train_df.loc[:, ['Age*Class', 'Age', 'Pclass']].head(10)
 
 
+#Embarked의 손실된 데이터는 2개인가 3개밖에안되니까 그냥 가장 많은 빈도수항구로 넣어주자
+freq_port = train_df.Embarked.dropna().mode()[0]
+freq_port
+
+for dataset in combine:
+    dataset['Embarked'] = dataset['Embarked'].fillna(freq_port)
+    
+train_df[['Embarked', 'Survived']].groupby(['Embarked'], as_index=False).mean().sort_values(by='Survived', ascending=False)
+
+#categorical -> numeric
+for dataset in combine:
+    dataset['Embarked'] = dataset['Embarked'].map( {'S': 0, 'C': 1, 'Q': 2} ).astype(int)
+
+train_df.head()
 
 
+#test_df에 fare가 하나 손실되어있음.
+test_df['Fare'].fillna(test_df['Fare'].dropna().median(), inplace=True)
+test_df.head()
 
 
+train_df['FareBand'] = pd.qcut(train_df['Fare'], 4)
+train_df[['FareBand', 'Survived']].groupby(['FareBand'], as_index=False).mean().sort_values(by='FareBand', ascending=True)
 
 
+for dataset in combine:
+    dataset.loc[ dataset['Fare'] <= 7.91, 'Fare'] = 0
+    dataset.loc[(dataset['Fare'] > 7.91) & (dataset['Fare'] <= 14.454), 'Fare'] = 1
+    dataset.loc[(dataset['Fare'] > 14.454) & (dataset['Fare'] <= 31), 'Fare']   = 2
+    dataset.loc[ dataset['Fare'] > 31, 'Fare'] = 3
+    dataset['Fare'] = dataset['Fare'].astype(int)
 
+train_df = train_df.drop(['FareBand'], axis=1)
+combine = [train_df, test_df]
+    
+train_df.head(10)
+test_df.head(10)
+
+
+#데이터 전처리 끝!
+#------------------------------------------------------------------------------------
+
+X_train = train_df.drop("Survived", axis=1)
+Y_train = train_df["Survived"]
+X_test  = test_df.drop("PassengerId", axis=1).copy()
+X_train.shape, Y_train.shape, X_test.shape
+
+X_train.head()
+Y_train.head()
+X_test.head()
+
+
+logreg = LogisticRegression()
+logreg.fit(X_train, Y_train)
+Y_pred = logreg.predict(X_test)
+acc_log = round(logreg.score(X_train, Y_train) * 100, 2)
+acc_log
+
+
+#coefficient 확인
+coeff_df = pd.DataFrame(train_df.columns.delete(0))
+coeff_df.columns = ['Feature']
+coeff_df["Correlation"] = pd.Series(logreg.coef_[0])
+
+coeff_df.sort_values(by='Correlation', ascending=False)
 
 
 
