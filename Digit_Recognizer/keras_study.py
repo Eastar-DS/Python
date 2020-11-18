@@ -10,6 +10,7 @@ from tensorflow import keras
 import matplotlib.pyplot as plt
 import os
 import numpy as np
+import pandas as pd
 
 
 
@@ -181,6 +182,125 @@ model = keras.models.Sequential([
 
 model.layers
 model.summary()
+
+'''
+Keras의 다양한 사용법
+from keras.layers import Dense
+output_layer = Dense(10)
+
+from tensorflow.keras.layers import Dense
+output_layer = Dense(10)
+
+from tensorflow import keras
+output_layer = keras.layers.Dense(10)
+
+from tensorflow.keras import layers
+output_layer = layers.Dense(10)
+'''
+
+hidden1 = model.layers[1]
+hidden1.name
+model.get_layer(hidden1.name) is hidden1
+weights, biases = hidden1.get_weights()
+weights
+weights.shape
+biases
+biases.shape
+'''
+Dense는 bias를 0으로 초기화함. 다른 초기화 방법을 사용하고싶다면 층을 만들때 
+kernel_initializer(커널은 연결 가중치 행렬의 또 다른 이름.) 와 
+bias_initializer 매개변수를 설정할 수 있음. 11장에서 초기화 방법에 대해 알아볼것임.
+'''
+model.compile(loss="sparse_categorical_crossentropy",
+              optimizer="sgd",
+              metrics=["accuracy"])
+'''
+이코드와 같음.
+model.compile(loss=keras.losses.sparse_categorical_crossentropy,
+              optimizer=keras.optimizers.SGD(),
+              metrics=[keras.metrics.sparse_categorical_accuracy])
+
+레이블이 정수 하나로 이루어져 있고(즉, 샘플마다 타깃 클래스 인덱스 하나가 있습니다. 여기서는 0~9까지 정수) 
+클래스가 배타적이므로 "sparse_categorical_crossentropy" 손실을 사용합니다. 만약 샘플마다 클래스 별 타깃 확률을
+가지고 있다면 (예를들어 클래스 3의경우 [0.,0.,0.,1.,0.,0.,0.,0.,0.,0.]인 원-핫 벡터라면 one-hot)
+대신 "categorical_crossentropy" 손실을 사용해야 합니다. (하나 또는 그 이상의 이진 레이블을 가진) 이진 분류를
+수행한다면 출력층에 "softmax"함수 대신 "sigmoid" 함수를 사용하고 "binary_crossentropy" 손실을 사용합니다.
+
+TIP : 희소한 레이블(sparse label즉 클래스 인덱스)을 원-핫 벡터 레이블로 변환하려면 
+keras.utils.to_categorical()함수를 사용하세요. 그 반대로 변환하려면 axis=1로 지정하여 np.argmax() 함수를 사용합니다.
+
+옵티마이저에 "sgd"를 지정하면 기본 확률적 경사 하강법(stochastic gradient descent)을 사용하여 모델을 훈련한다는 의미.
+다른 말로 하면 케라스가 앞서 소개한 역전파 알고리즘을 수행합니다(즉, 후진 모드 자동 미분과 경사 하강법). 
+11장에서 더 효율적인 옵티마이저를 설명합니다.
+
+SGD 옵티마이저를 사용할 때 학습률을 튜닝하는 것이 중요. optimizer=keras.optimizers.SGD(lr= ??? ).
+기본값은 lr= 0.01
+'''
+
+
+#모델 훈련시킬때는 간단하게 fit()메서드를 호출합니다.
+history = model.fit(X_train, y_train, epochs=30,
+                    validation_data=(X_valid, y_valid))
+
+'''
+validation_data 매개변수에 검증 세트를 전달하는 대신 케라스가 검증에 사용할 훈련 세트의 비율을 지정할 수 있습니다.
+예를 들어 validataion_split=0.1로 쓰면 케라스는 검증에 (섞기 전의) 데이터의 마지막 10%를 사용합니다.
+
+훈련 데이터와 검증 데이터의 크기가 맞지 않으면 예외가 발생됩니다. 이 메세지는 아주 명확합니다.
+예를들어 일렬로 펼친 이미지(X_train.reshape(-1,784))를 담은 배열로 이 모델을 훈련한다면 다음과 같은 예외가 발생.
+"ValueError: Error when checking input: expected flatten_input to have 3 dimensions, 
+but got array with shape(60000, 784)."
+
+어떤 클래스는 많이 등장하고 다른 클래스는 조금 등장하여 훈련 세트가 편중되어 있다면 fit() 메서드를 호출할 때
+class_weight 매개변수를 지정하는 것이 좋습니다. 적게 등장하는 클래스는 높은 가중치를 부여하고 많이 등장하는 클래스는
+낮은 가중치를 부여합니다. 케라스가 손실을 계산할 때 이 가중치를 사용합니다. 
+
+샘플별로 가중치를 부여하고 싶다면 sample_weight 매개변수를 지정합니다(class_weight와 sample_weight가 모두 지정되면 
+                                                                                    두 값을 곱하여 사용합니다.)
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
