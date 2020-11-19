@@ -15,6 +15,7 @@ import pandas as pd
 
 
 
+
 fashion_mnist = keras.datasets.fashion_mnist
 (X_train_full, y_train_full), (X_test, y_test) = fashion_mnist.load_data()
 print(X_train_full.shape, y_train_full.shape, X_test.shape, y_test.shape)
@@ -206,6 +207,7 @@ weights
 weights.shape
 biases
 biases.shape
+
 '''
 Dense는 bias를 0으로 초기화함. 다른 초기화 방법을 사용하고싶다면 층을 만들때 
 kernel_initializer(커널은 연결 가중치 행렬의 또 다른 이름.) 와 
@@ -258,25 +260,57 @@ class_weight 매개변수를 지정하는 것이 좋습니다. 적게 등장하�
 샘플별로 가중치를 부여하고 싶다면 sample_weight 매개변수를 지정합니다(class_weight와 sample_weight가 모두 지정되면 
                                                                                     두 값을 곱하여 사용합니다.)
 
+fit() 메서드가 반환하는 History 객체에는 훈련파라미터(history.params), 수행된 에포크리스트(history.epoch)가 포함.
+이 객체의 가장 중요한 속성은 에포크가 끝날 때마다 훈련 세트와 (있다면) 검증 세트에 대한 손실과 측정한 지표를 담은
+딕셔너리(history.history)입니다.
+
+이 딕셔너리를 사용해 판다스 데이터프레임을 만들고 plot() 메서드를 호출하면 학습곡선(Learning curve)을 볼 수 있습니다.
 '''
 
+pd.DataFrame(history.history).plot(figsize=(8, 5))
+plt.grid(True)
+plt.gca().set_ylim(0, 1)
+#save_fig("keras_learning_curves_plot")
+plt.show()
+
+'''
+케라스에서는 fit()메서드를 다시 호출하면 중지되었던 곳에서부터 훈련을 이어갈 수 있습니다.
+(89% 검증 정확도에 가까이 도달할 것임.)
+
+모델 성능이 만족스럽지 않다면 처음으로 되돌아가서 하이퍼파라미터를 튜닝해야 합니다. 맨처음 확인할 것은 학습률(learning rate)입니다.
+학습률이 도움이 되지 않으면 다른 옵티마이저를 테스트해보세요.
+(항상 다른 하이퍼파라미터를 바꾼 후에는 학습률을 다시 튜닝해야 합니다.)
+여전히 성능이 높지 않으면 층 개수, 층에 있는 뉴런 개수, 은닉층이 사용하는 활성화 함수와 같은 모델의 하이퍼파라미터를 튜닝.
+배치 크기와 같은 다른 하이퍼파라미터를 튜닝해볼 수도있음.(fit() 메서드를 호출할때 batch_size 매개변수로 지정. 기본값은 32)
+끝에서 하이퍼파라미터 튜닝에 대해 다시 알아볼것임.
+모델의 검증 정확도가 만족스럽다면 모델을 상용 환경으로 배포하기 전에 테스트 세트로 모델을 평가하여 일반화 오차를 추정해야합니다.
+이때 evaluate() 메서드를 사용.(이 메서드는 batch_size와 sample_weight 같은 다른 매개변수도 지원.)
+'''
+
+model.evaluate(X_test, y_test)
 
 
+X_new = X_test[:3]
+y_proba = model.predict(X_new)
+y_proba.round(2)
 
 
+y_pred = model.predict_classes(X_new)
+y_pred
+np.array(class_names)[y_pred]
 
+y_new = y_test[:3]
+y_new
 
-
-
-
-
-
-
-
-
-
-
-
+plt.figure(figsize=(7.2, 2.4))
+for index, image in enumerate(X_new):
+    plt.subplot(1, 3, index + 1)
+    plt.imshow(image, cmap="binary", interpolation="nearest")
+    plt.axis('off')
+    plt.title(class_names[y_test[index]], fontsize=12)
+plt.subplots_adjust(wspace=0.2, hspace=0.5)
+#save_fig('fashion_mnist_images_plot', tight_layout=False)
+plt.show()
 
 
 
