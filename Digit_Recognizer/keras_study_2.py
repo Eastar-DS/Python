@@ -37,7 +37,10 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_valid = scaler.transform(X_valid)
 X_test = scaler.transform(X_test)
-
+'''
+Scaler : 기존 변수에 범위를 정규 분포로 변환. 각 피처의 평균을 0, 분산을 1로 변경. 모든 특성들이 같은 스케일을 갖게 됨.
+         이상치(Outlier)가 있는 경우 균형 잡힌 척도를 보장할 수 없다는 단점.
+'''
 
 np.random.seed(42)
 tf.random.set_seed(42)

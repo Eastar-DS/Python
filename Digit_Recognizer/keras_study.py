@@ -239,6 +239,7 @@ SGD 옵티마이저를 사용할 때 학습률을 튜닝하는 것이 중요. op
 기본값은 lr= 0.01
 '''
 
+print(X_train.shape, y_train.shape, X_valid.shape, y_valid.shape)
 
 #모델 훈련시킬때는 간단하게 fit()메서드를 호출합니다.
 history = model.fit(X_train, y_train, epochs=30,
