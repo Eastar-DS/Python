@@ -401,16 +401,25 @@ from tensorflow import keras
 import os
 
 keras.backend.clear_session()
-np.random.seed(42)
-tf.random.set_seed(42)
+np.random.seed(22)
+tf.random.set_seed(22)
 
 model = keras.models.Sequential()
 model.add(keras.layers.Flatten(input_shape=[8]))
 model.add(keras.layers.Dense(300, activation="relu"))
+model.add(keras.layers.Dense(300, activation="relu"))
+model.add(keras.layers.Dense(300, activation="relu"))
+model.add(keras.layers.Dense(300, activation="relu"))
+model.add(keras.layers.Dense(200, activation="relu"))
+model.add(keras.layers.Dense(200, activation="relu"))
 model.add(keras.layers.Dense(200, activation="relu"))
 model.add(keras.layers.Dense(100, activation="relu"))
-model.add(keras.layers.Dense(2, activation="sigmoid"))
-'생존여부가 0,1 두개이므로 sigmoid로 활성화.'
+model.add(keras.layers.Dense(100, activation="relu"))
+model.add(keras.layers.Dense(100, activation="relu"))
+model.add(keras.layers.Dense(1, activation="sigmoid"))
+# 생존여부가 0,1 두개이므로 sigmoid로 활성화.
+# binary_crossentropy가 손실함수여서그런지 마지막 레이어의 뉴런수를 1개로 해야하네?
+
 
 
 model.layers
@@ -439,17 +448,25 @@ X_test_array = np.array(X_test)
 
 
 
-history = model.fit(X_train_array, y_train_array, epochs=8,
+history = model.fit(X_train_array, y_train_array, epochs=50,
                     validation_data=(X_valid_array, y_valid_array))
 
 
 
+pd.DataFrame(history.history).plot(figsize=(8, 5))
+
+
+y_pred = model.predict_classes(X_test)
+y_pred
+
+
+
 #LogisticRegression
-logreg = LogisticRegression()
-logreg.fit(X_train, Y_train)
-Y_pred = logreg.predict(X_test)
-acc_log = round(logreg.score(X_train, Y_train) * 100, 2)
-acc_log
+# logreg = LogisticRegression()
+# logreg.fit(X_train, Y_train)
+# Y_pred = logreg.predict(X_test)
+# acc_log = round(logreg.score(X_train, Y_train) * 100, 2)
+# acc_log
 
 '''
 #coefficient 확인
@@ -533,10 +550,10 @@ models.sort_values(by='Score', ascending=False)
 #제출준비
 submission = pd.DataFrame({
         "PassengerId": test_df["PassengerId"],
-        "Survived": Y_pred
+        "Survived": y_pred[:,0]
     })
 
-#submission.to_csv('submission_Decision.csv', index=False)
+submission.to_csv('submission_Keras2.csv', index=False)
 
 
 
