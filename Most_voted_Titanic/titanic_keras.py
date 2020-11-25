@@ -401,8 +401,8 @@ from tensorflow import keras
 import os
 
 keras.backend.clear_session()
-np.random.seed(22)
-tf.random.set_seed(22)
+np.random.seed(42)
+tf.random.set_seed(42)
 
 model = keras.models.Sequential()
 model.add(keras.layers.Flatten(input_shape=[8]))
@@ -448,7 +448,7 @@ X_test_array = np.array(X_test)
 
 
 
-history = model.fit(X_train_array, y_train_array, epochs=50,
+history = model.fit(X_train_array, y_train_array, epochs=20, batch_size = 1, 
                     validation_data=(X_valid_array, y_valid_array))
 
 
