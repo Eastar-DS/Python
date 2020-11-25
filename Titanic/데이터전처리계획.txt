@@ -1,0 +1,35 @@
+PassengerID
+
+Survived
+
+Pclass : 0,1,2
+
+Name : 더뽑아낼게 없을까?
+
+Gender : 0,1
+
+Age : 이거 굳이 밴드로만들지말자. train,test 손실데이터 많음.
+
+SibSp : 
+
+Parch : 
+
+Ticket : 
+
+Fare : test 1개손실
+
+Cabin : train, test 거의다 손실되어있음인줄 알았는데 cabin이 있는사람들이 비싼티켓인경우가 많네.
+알파벳이 앞쪽일수록 고급.
+
+Embarked : train 2명손실
+
+
+1. SibSp 와 Parch 합치지 말자.
+2. Ticket 없애지말고 알파벳 있는티켓과 없는티켓 분류해보기
+
+3. Fare 없애지 말기.
+
+4. Cabin 없애지말고 Cabin없는사람은 0, 있는사람은 알파벳 순서로 배열하기
+
+
+
