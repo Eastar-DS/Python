@@ -37,3 +37,29 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
+        
+    def reverse(x):
+        string = str(x)
+        size = len(string)
+        answer = ''
+        if(x>2**31-1 or x<-2**31):
+            return 0
+        elif(x > 0):
+            for i in range(size):
+                answer = answer + string[size-(i+1)]
+            if(int(answer)>(2**31)-1 or int(answer)<-(2**31)):
+                return 0
+        elif(x < 0):
+            answer = '-'
+            for i in range(size-1):
+                answer = answer + string[size-(i+1)]
+            if(int(answer)>(2**31)-1 or int(answer)<-(2**31)):
+                return 0
+        elif(x == 0):
+            return 0;
+        return int(answer)
+        
+        """
+        :type x: int
+        :rtype: int
+        """
