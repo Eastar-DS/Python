@@ -63,3 +63,20 @@ class Solution(object):
         :type x: int
         :rtype: int
         """
+        
+    def isPalindrome(x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if(x > 2**31 - 1 or x < -2**31):
+            return 0
+        string = str(x)
+        size = int((len(string)+1)/2)
+        for i in range(size):
+            if(string[i] != string[len(string)-(i+1)]):
+                return False
+        return True    
+        
+        
+        
