@@ -9,6 +9,12 @@ class Solution(object):
         :type l1: ListNode
         :type l2: ListNode
         :rtype: ListNode
+
+        Runtime: 52 ms, faster than 93.51% 
+            of Python online submissions for Add Two Numbers.
+        Memory Usage: 13.4 MB, less than 92.96% 
+            of Python online submissions for Add Two Numbers.
+
         """
         l3 = None
         carry = 0
@@ -27,7 +33,7 @@ class Solution(object):
         
         node1 = node1.next
         node2 = node2.next        
-        while(node1.next != None or node2.next != None):
+        while(node1 != None and node2 != None):
             val = node1.val + node2.val + carry
             if(val > 9):
                 carry = 1
@@ -39,64 +45,27 @@ class Solution(object):
             node1 = node1.next
             node2 = node2.next
         
-        if(node1.next == None and node2.next == None):
-            val = node1.val + node2.val + carry
+        if(node2 == None):
+            node12 = node1
+        else:
+            node12 = node2    
+        
+        while(node12 != None):
+            val = node12.val + carry
             if(val > 9):
                 carry = 1
                 val -= 10
             else:
                 carry = 0
             node3.next = ListNode(val)
-            if(carry == 1):
-                node3.next = ListNode(1)
-            return l3
+            node3 = node3.next
+            node12 = node12.next       
         
-        else:
-            if(node2 == None):
-                node12 = node1
-            else:
-                node12 = node2
-            
-            
+        if(carry == 1):
+            node3.next = ListNode(1)
+            carry = 0
         
-        
-        
-            
-        # l3=[]
-        # len1 = len(l1)
-        # len2 = len(l2)
-        # minlen = min(len1,len2)
-        # carry1 = 0
-        # for i in range(minlen):
-        #     if(l1[i] + l2[i] + carry1 > 9):
-        #         l3.append(l1[i]+l2[i] - 10 + carry1)
-        #         carry1 = 1
-        #     else:
-        #         l3.append(l1[i]+l2[i] + carry1)
-        #         carry1 = 0
-        # if(len1 == len2):
-        #     if(carry1 == 0):
-        #         return l3
-        #     if(carry1 == 1):
-        #         l3.append(1)
-        #         return l3
-        # maxlen = max(len1,len2)
-        # for j in range(maxlen - minlen):
-        #     if(len1 > len2):
-        #         if((l1[minlen + j] + carry1) < 10):
-        #             l3.append(l1[minlen + j] + carry1)
-        #             carry1 = 0
-        #         else:
-        #             l3.append(0)
-        #             carry1 = 1
-        #     else:
-        #         if((l2[minlen + j] + carry1) < 10):
-        #             l3.append(l2[minlen + j] + carry1)
-        #             carry1 = 0
-        #         else:
-        #             l3.append(0)
-        #             carry1 = 1
-        # if(carry1 == 1):
-        #     l3.append(1)
-        # return l3
+        return l3
+           
+         
         
