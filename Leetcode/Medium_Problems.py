@@ -68,4 +68,63 @@ class Solution(object):
         return l3
            
          
+
+
+
+
+    def threeSum(nums):
+            """
+            :type nums: List[int]
+            :rtype: List[List[int]]
+            """
+            out = []
+            # dic = []
+            size = len(nums)
+            if(size < 3):
+                return out
+            
+            for i in range(size-2):
+                for j in range(size-2-i):
+                    for k in range(size-2-(i+j)):
+                        val = nums[i]+nums[i+j+1]+nums[i+j+k+2]
+                        if(val == 0):
+                            out.append([nums[i],nums[i+j+1],nums[i+j+k+2]])            
+            
+            return out
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
