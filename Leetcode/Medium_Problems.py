@@ -198,7 +198,41 @@ class Solution(object):
 
 
 
-
+    def letterCombinations(digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        0 <= digits.length <= 4
+        
+        """
+        # digitslist = []
+        # out = []
+        # dic = {'2':'abc', '3':'def', '4':'ghi', '5':'jkl', '6':'mno', '7':'pqrs', '8':'tuv', '9':'wxyz'}
+        # length = len(digits)
+        # for i in range(length):
+        #     digitslist.append(digits[i])
+        
+            
+        # X = digitslist[0]
+        # if(digitslist[1] != None):
+        #     Y = digitslist[1]
+        # if(digitslist[2] != None):
+        #     Z = digitslist[2]
+        # if(digitslist[3] != None):
+        #     W = digitslist[3]
+        from functools import reduce
+        if '' == digits: return []
+        kvmaps = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+        return reduce(lambda acc, digit: [x + y for x in acc for y in kvmaps[digit]], digits, [''])        
 
 
 
