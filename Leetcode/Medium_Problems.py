@@ -222,7 +222,7 @@ class Solution(object):
         #     W = digitslist[3]
         from functools import reduce
         if '' == digits: return []
-        kvmaps = {
+        dic = {
             '2': 'abc',
             '3': 'def',
             '4': 'ghi',
@@ -232,13 +232,42 @@ class Solution(object):
             '8': 'tuv',
             '9': 'wxyz'
         }
-        return reduce(lambda acc, digit: [x + y for x in acc for y in kvmaps[digit]], digits, [''])        
+        return reduce(lambda z,w: [x+y for x in z for y in dic[w]], digits, [''])   
+
+
+
+
+
+    # return reduce(lambda z,w: [x+y for x in z for y in dic[w]], digits, [''])
+
+
+'''
+
+
+reduce(lambda x,y: x+y, [1,2,3,4,5], 100)
+
+
+reduce(lambda z,w: [x+y for x in z for y in w], ['abc','def'], [''])
 
 
 
 
 
 
+
+reduce(lambda z,w: [x+y for x in z for y in dic[w]], digits, [''])
+
+
+
+reduce(lambda z,w: [x+y for x in z for y in w], ['abc'], [''])
+['a', 'b', 'c']
+
+for x in ['']:
+   for y in ['abc']:
+      [x+y]
+      
+      
+'''
 
 
 
