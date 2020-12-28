@@ -197,13 +197,12 @@ class Solution(object):
         return out
 
 
-
     def letterCombinations(digits):
         """
         :type digits: str
         :rtype: List[str]
         0 <= digits.length <= 4
-        
+        8 ms	13.5 MB
         """
         # digitslist = []
         # out = []
@@ -241,38 +240,78 @@ class Solution(object):
     # return reduce(lambda z,w: [x+y for x in z for y in dic[w]], digits, [''])
 
 
-'''
 
 
-reduce(lambda x,y: x+y, [1,2,3,4,5], 100)
+# reduce(lambda x,y: x+y, [1,2,3,4,5], 100)
 
 
-reduce(lambda z,w: [x+y for x in z for y in w], ['abc','def'], [''])
-
-
+# reduce(lambda z,w: [x+y for x in z for y in w], ['abc','def'], [''])
 
 
 
 
 
-reduce(lambda z,w: [x+y for x in z for y in dic[w]], digits, [''])
+
+
+# reduce(lambda z,w: [x+y for x in z for y in dic[w]], digits, [''])
 
 
 
-reduce(lambda z,w: [x+y for x in z for y in w], ['abc'], [''])
-['a', 'b', 'c']
+# reduce(lambda z,w: [x+y for x in z for y in w], ['abc'], [''])
+# ['a', 'b', 'c']
 
-for x in ['']:
-   for y in ['abc']:
-      [x+y]
+# for x in ['']:
+#    for y in ['abc']:
+#       [x+y]
       
-      
-'''
 
 
+    def fourSum(nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        0 <= nums.length <= 200
+        -10^9 <= nums[i] <= 10^9
+        -10^9 <= target <= 10^9
+        
+        """
+        if(len(nums) < 4):
+            return []
+        nums = sorted(nums)
+        length = len(nums)
+        res = []
+        for i in range(length - 3):
+            for idx in range((i+1),(length-2)):                
+                l = idx + 1
+                r = length - 1
+                target2 = target - nums[i]
+                if((nums[i] == nums[i+1]) and (nums[i] == nums[i+2]) and (nums[i]+nums[i+1]+nums[i+2] == target - nums[i+3])):
+                    res.append([nums[i], nums[idx], nums[l], nums[l+1]])
 
-
-
+                    
+                if((nums[idx] == nums[idx + 1]) and (nums[l] == nums[l+1])):
+                    continue
+                while( l < r ):
+                    if((nums[idx] + nums[l] + nums [r]) == target2):
+                        res.append([nums[i], nums[idx], nums[l], nums[r]])
+                        l += 1
+                        while(nums[l-1] == nums[l]):
+                            l += 1
+                        continue
+                    if((nums[idx] + nums[l] + nums [r]) < target2):
+                        l += 1
+                        while(nums[l-1] == nums[l]):
+                            l += 1
+                        continue
+                    if((nums[idx] + nums[l] + nums [r]) > target2):
+                        r -= 1
+                        while(nums[r+1] == nums[r]):
+                            r -= 1
+                        continue
+                                    
+        return res
+                    
 
 
 
