@@ -77,6 +77,49 @@ class Solution(object):
     
     
     
+    def removeNthFromEnd(head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        node1 = head
+        length = 0;
+        while(node1.next != None):
+            node1 = node1.next
+            length += 1
+            
+        delnum = length - n
+        idx = 0
+        while
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
