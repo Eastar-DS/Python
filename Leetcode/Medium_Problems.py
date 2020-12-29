@@ -274,44 +274,56 @@ class Solution(object):
         0 <= nums.length <= 200
         -10^9 <= nums[i] <= 10^9
         -10^9 <= target <= 10^9
-        
+        특이점들.
+        [0,0,0,0],0
+        [-1,-5,-5,-3,2,5,0,4],-7
+        Runtime: 1620 ms, faster than 6.15% of Python online submissions for 4Sum.
+        Memory Usage: 13.2 MB, less than 97.27% of Python online submissions for 4Sum. 
         """
+       
         if(len(nums) < 4):
             return []
         nums = sorted(nums)
         length = len(nums)
         res = []
-        for i in range(length - 3):
-            for idx in range((i+1),(length-2)):                
+        i = 0
+        while( i < (length - 3)):
+            target2 = target - nums[i]
+            idx = i + 1
+            while( idx < (length-2)):                
                 l = idx + 1
                 r = length - 1
-                target2 = target - nums[i]
-                if((nums[i] == nums[i+1]) and (nums[i] == nums[i+2]) and (nums[i]+nums[i+1]+nums[i+2] == target - nums[i+3])):
-                    res.append([nums[i], nums[idx], nums[l], nums[l+1]])
-
-                    
-                if((nums[idx] == nums[idx + 1]) and (nums[l] == nums[l+1])):
-                    continue
+               
                 while( l < r ):
                     if((nums[idx] + nums[l] + nums [r]) == target2):
                         res.append([nums[i], nums[idx], nums[l], nums[r]])
-                        l += 1
-                        while(nums[l-1] == nums[l]):
+                        # print('append', i, idx, l, r)
+                        while((l < length - 1) and (nums[l] == nums[l+1])):
                             l += 1
-                        continue
-                    if((nums[idx] + nums[l] + nums [r]) < target2):
                         l += 1
-                        while(nums[l-1] == nums[l]):
-                            l += 1
                         continue
-                    if((nums[idx] + nums[l] + nums [r]) > target2):
-                        r -= 1
-                        while(nums[r+1] == nums[r]):
+                    if((nums[idx] + nums[l] + nums [r]) < target2):                        
+                        while((l < length - 1) and (nums[l] == nums[l+1])):
+                            l += 1
+                        l += 1
+                        continue
+                    if((nums[idx] + nums[l] + nums [r]) > target2):                        
+                        while((r > idx + 1) and (nums[r] == nums[r-1])):
                             r -= 1
+                        r -= 1
                         continue
-                                    
+                
+                while((idx < length - 2) and (nums[idx] == nums[idx + 1])):
+                    idx += 1
+                idx += 1
+            while( (i < length - 3) and (nums[i] == nums[i+1])):
+                i += 1
+            i += 1    
         return res
-                    
+        '''
+        while((l < length - 1) and (nums[l] == nums[l+1]))의 앞의 조건은 l이 계속해서 커지다가 리스트의 끝까지 가버렸을때를
+        대비하기위함.
+        '''                    
 
 
 
