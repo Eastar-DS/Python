@@ -82,21 +82,28 @@ class Solution(object):
         :type head: ListNode
         :type n: int
         :rtype: ListNode
+        Runtime: 8 ms, faster than 99.92%
+        Memory Usage: 13.4 MB, less than 73.46%
         """
-        node1 = head
-        length = 0;
+        node1 = head        
+        length = 1;
+        node2 = ListNode(0)
+        node2.next = head
+        node3 = node2                
+        
+        idx = 0        
         while(node1.next != None):
             node1 = node1.next
-            length += 1
-            
+            length += 1       
         delnum = length - n
-        idx = 0
-        while
-    
-    
-    
-    
-    
+
+        while(idx != (delnum)):
+            idx += 1
+            node2 = node2.next
+        node2.next = node2.next.next
+        
+        return node3.next
+        
     
     
     
