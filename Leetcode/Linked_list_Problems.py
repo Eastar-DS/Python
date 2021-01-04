@@ -104,8 +104,45 @@ class Solution(object):
         
         return node3.next
         
-    
-    
+        
+    def swapPairs(head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if(head == None):
+            return None
+        lennode = head
+        length = 1
+        while(lennode.next != None):
+            length += 1
+            lennode = lennode.next
+        node1 = ListNode(0)
+        node1.next = head
+        node2 = node1
+        print(length)
+        if(length % 2 == 0):
+            while(node1 != None):                
+                val1 = node1.next.val
+                val2 = node1.next.next.val
+                print(val1, '  ', val2)
+                node1.next.val = val2
+                node1 = node1.next
+                node1.next = val1
+                node1 = node1.next
+        else:
+            idx = 0
+            while(idx < length - 1):
+                val1 = node1.next.val
+                val2 = node1.next.next.val
+                node1.next.val = val2
+                node1 = node1.next
+                node1.next = val1
+                node1 = node1.next
+                idx += 2
+                
+        return node2.next
+            
     
     
     
