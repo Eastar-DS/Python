@@ -108,7 +108,11 @@ class Solution(object):
     def swapPairs(head):
         """
         :type head: ListNode
-        :rtype: ListNode
+        :rtype: ListNode        
+        Runtime: 16 ms, faster than 85.61% of Python online submissions for Swap Nodes in Pairs.
+        Memory Usage: 13.2 MB, less than 99.94% of Python online submissions for Swap Nodes in Pairs.
+        Follow up: Can you solve the problem without modifying the values in the list's nodes?
+                    (i.e., Only nodes themselves may be changed.)
         """
         if(head == None):
             return None
@@ -122,13 +126,13 @@ class Solution(object):
         node2 = node1
         print(length)
         if(length % 2 == 0):
-            while(node1 != None):                
+            while(node1.next != None):                
                 val1 = node1.next.val
                 val2 = node1.next.next.val
                 print(val1, '  ', val2)
                 node1.next.val = val2
                 node1 = node1.next
-                node1.next = val1
+                node1.next.val = val1
                 node1 = node1.next
         else:
             idx = 0
@@ -137,7 +141,7 @@ class Solution(object):
                 val2 = node1.next.next.val
                 node1.next.val = val2
                 node1 = node1.next
-                node1.next = val1
+                node1.next.val = val1
                 node1 = node1.next
                 idx += 2
                 
@@ -145,13 +149,55 @@ class Solution(object):
             
     
     
+    def rotateRight(head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        Runtime: 36 ms, faster than 13.58% of Python online submissions for Rotate List.
+        Memory Usage: 13.5 MB, less than 62.57% of Python online submissions for Rotate List.
+        """
+        if(head == None):
+            return None
+        lennode = head
+        length = 1
+        while(lennode.next != None):
+            length += 1
+            lennode = lennode.next
+        node1 = ListNode(0)
+        node1.next = head
+        node2 = node1
+        for num in range(k % length):           
+            for i in range(length):
+                node2 = node2.next
+            node2.next = node1.next
+            node1.next = node2
+            for j in range(length - 1):
+                node2 = node2.next
+            node2.next = None
+            node2 = node1
+            
+        return node1.next
+
     
-    
-    
-    
-    
-    
-    
+    def deleteDuplicates(head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        node1 = head
+        node2 = node1
+        node3 = node2
+        val1 = node1.val
+        val2 = node2.val
+        while(node1.next != None):
+            while(node1.val == node1.next.val):
+                node1 = node1.next
+            node2.next = node1.next
+        
+
+
+        return node3                
     
     
     
