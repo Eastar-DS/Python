@@ -184,24 +184,61 @@ class Solution(object):
         """
         :type head: ListNode
         :rtype: ListNode
+        []
+        [1,1,2,3,3]
+        [1]
+        Runtime: 24 ms, faster than 94.19% of Python online submissions for Remove Duplicates from Sorted List.
+        Memory Usage: 13.4 MB, less than 91.02% of Python online submissions for Remove Duplicates from Sorted List.
         """
+        if(head == None):
+            return None
+        if(head.next == None):
+            return head
         node1 = head
-        node2 = node1
-        node3 = node2
-        val1 = node1.val
-        val2 = node2.val
-        while(node1.next != None):
-            while(node1.val == node1.next.val):
-                node1 = node1.next
-            node2.next = node1.next
+        node2 = ListNode(0)
+        res = node2
         
+        while((node1 != None) and (node1.next != None)):
+            while((node1.next != None) and (node1.val == node1.next.val)):
+                node1 = node1.next
+            node2.next = node1
+            node1 = node1.next            
+            node2 = node2.next
+        
+        return res.next
 
-
-        return node3                
     
     
-    
-    
+    def deleteDuplicates2(head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        
+        
+        """
+        if(head == None):
+            return None
+        if(head.next == None):
+            return head
+        node1 = head
+        node2 = ListNode(0)
+        node3 = node2
+        val = head.val
+        while(node1.next != None):
+            if(val == node1.next.val):
+                while((node1.next != None) and (node1.val == node1.next.val)):
+                    node1 = node1.next
+                node1 = node1.next
+                val = node1.val
+            else:
+                node2.next = ListNode(val)
+                node2 = node2.next
+                node1 = node1.next
+                val = node1.val
+        
+        
+        return node3.next
+        
     
     
     
