@@ -213,7 +213,7 @@ class Solution(object):
         """
         :type head: ListNode
         :rtype: ListNode
-        
+        [1,1]
         
         """
         if(head == None):
@@ -235,7 +235,7 @@ class Solution(object):
                 node2 = node2.next
                 node1 = node1.next
                 val = node1.val
-        
+        node2.next = ListNode(val)
         
         return node3.next
         
