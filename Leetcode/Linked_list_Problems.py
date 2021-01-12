@@ -214,7 +214,9 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         [1,1]
-        
+        [1,1,1,2,3] -> [2]
+        Runtime: 40 ms, faster than 8.49% of Python online submissions for Remove Duplicates from Sorted List II.
+        Memory Usage: 13.5 MB, less than 31.27% of Python online submissions for Remove Duplicates from Sorted List II.
         """
         if(head == None):
             return None
@@ -228,17 +230,91 @@ class Solution(object):
             if(val == node1.next.val):
                 while((node1.next != None) and (node1.val == node1.next.val)):
                     node1 = node1.next
-                node1 = node1.next
-                val = node1.val
+                if(node1.next != None):
+                    node1 = node1.next
+                    val = node1.val
+                    if(node1.next == None):
+                        node2.next = ListNode(val)
+                
             else:
                 node2.next = ListNode(val)
                 node2 = node2.next
                 node1 = node1.next
                 val = node1.val
-        node2.next = ListNode(val)
+                if(node1.next == None):
+                        node2.next = ListNode(val)
+        
         
         return node3.next
         
+    
+    
+    def reverseList(head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        한큐에 통과
+        Runtime: 20 ms, faster than 92.18% of Python online submissions for Reverse Linked List.
+        Memory Usage: 17.1 MB, less than 21.77% of Python online submissions for Reverse Linked List.
+        """
+        li = []
+        node1 = head
+        node2 = ListNode(0)
+        res = node2
+        while(node1 != None):
+            li.append(node1.val)
+            node1 = node1.next
+            
+        for i in range(len(li) - 1 , -1, -1):
+            node2.next = ListNode(li[i])
+            node2 = node2.next
+        
+        return res.next
+            
+    
+    def reverseBetween(head, m, n):
+        """
+        :type head: ListNode
+        :type m: int
+        :type n: int
+        :rtype: ListNode
+        한큐에 통과
+        Runtime: 20 ms, faster than 65.66% of Python online submissions for Reverse Linked List II.
+        Memory Usage: 13.5 MB, less than 87.26% of Python online submissions for Reverse Linked List II.
+        """
+        li1 = []
+        li2 = []
+        idx = 0
+        node1 = head
+        node2 = ListNode(0)
+        res = node2
+        
+        while(node1 != None and idx < n):
+            li1.append(node1.val)
+            node1 = node1.next
+            idx += 1
+        
+        for k in range(m-1):
+            li2.append(li1[k])
+        for i in range(n-1,m-2,-1):
+            li2.append(li1[i])
+        
+        for j in range(n):
+            node2.next = ListNode(li2[j])
+            node2 = node2.next
+        if(node1 != None):
+            node2.next = node1
+        
+        return res.next
+            
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
