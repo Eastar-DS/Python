@@ -306,11 +306,61 @@ class Solution(object):
             node2.next = node1
         
         return res.next
-            
     
     
+    def hasCycle(head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        Follow up: Can you solve it using O(1) (i.e. constant) memory?
+        어떻게 Cycle이 있는지 알 수 있지?
+        slow와 fast의 도입생각을 못했음.
+        Runtime: 36 ms, faster than 85.42% of Python online submissions for Linked List Cycle.
+        Memory Usage: 19.7 MB, less than 63.99% of Python online submissions for Linked List Cycle.
+        """
+        if(head == None or head.next == None):
+            return False
+        slow = head
+        fast = head.next
+        while(slow != fast and fast != None and fast.next != None):
+            slow = slow.next
+            fast = fast.next.next
+        if(slow == fast):
+            return True
+        else:
+            return False
+        
+        
     
-    
+    def detectCycle(head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        https://www.youtube.com/watch?v=LUm2ABqAs1w start지점을 어떻게 찾는건지 굉장히 놀라움.
+        Floyd's cycle Detection algorithm
+        Runtime: 40 ms, faster than 74.66% of Python online submissions for Linked List Cycle II.
+        Memory Usage: 19.3 MB, less than 99.69% of Python online submissions for Linked List Cycle II.
+        """
+        if(head == None or head.next == None):
+            return None
+        slow = head.next
+        fast = head.next.next
+        while(fast != None and fast.next != None and slow != fast):
+            slow = slow.next
+            fast = fast.next.next
+        
+        if(slow == fast):
+            slow = head
+            while(slow != fast):
+                slow = slow.next
+                fast = fast.next
+            return slow      
+        
+        else:
+            return None
+        
+        
+        
     
     
     
