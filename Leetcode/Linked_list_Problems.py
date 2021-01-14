@@ -360,8 +360,45 @@ class Solution(object):
             return None
         
         
+    def reorderList(head):
+        """
+        :type head: ListNode
+        :rtype: None Do not return anything, modify head in-place instead.
+        원큐
+        Runtime: 88 ms, faster than 83.96% of Python online submissions for Reorder List.
+        Memory Usage: 31.3 MB, less than 65.01% of Python online submissions for Reorder List.
+        """
+        node1 = head
+        node2 = ListNode(0)
+        length = 0
+        list1 = []
+        list2 = []
+        while(node1 != None):
+            list1.append(node1)
+            node1 = node1.next
+            length += 1
         
-    
+        for i in range(length - 1, (length- 1)//2, -1):
+            list2.append(list1[i])
+        
+        if(length % 2 == 0):
+            for i in range(length/2):
+                node2.next = list1[i]
+                node2 = node2.next
+                node2.next = list2[i]
+                node2 = node2.next
+            node2.next = None    
+        else:
+            for i in range((length-1)/2):
+                node2.next = list1[i]
+                node2 = node2.next
+                node2.next = list2[i]
+                node2 = node2.next
+            node2.next = list1[length//2]
+            node2 = node2.next
+            node2.next = None
+                                
+        
     
     
     
