@@ -12,7 +12,7 @@ class ListNode(object):
         self.next = next
 
 class Solution(object):
-    def addTwoNumbers(l1, l2):
+    def addTwoNumbers1(l1, l2):
         """
         :type l1: ListNode
         :type l2: ListNode
@@ -399,14 +399,205 @@ class Solution(object):
             node2.next = None
                                 
         
+    def removeElements(head, val):
+        """
+        203. Linked List
+        :type head: ListNode
+        :type val: int
+        :rtype: ListNode
+        1. [1], val = 1 인경우 오류(node1 = head로 뒀었음)
+        2. return값을 head로 둬서 오류
+        3. return값을 node1.next로 둬서 오류
+        4. [1,1], val = 1(노드를 하나 줄여놓고 다음으로 넘어가버리니까 연산을 안해버림) : next로 넘어가는건 else경우로수
+        Runtime: 68 ms, faster than 35.89% of Python online submissions for Remove Linked List Elements.
+        Memory Usage: 20 MB, less than 96.61% of Python online submissions for Remove Linked List Elements.
+        """
+        node1 = ListNode(0)
+        node1.next = head
+        node2 = node1
+        
+        while(node1 != None and node1.next != None):
+            val1 = node1.next.val
+            if(val1 == val):
+                node1.next = node1.next.next
+            else:
+                node1 = node1.next
+        
+        return node2.next
     
     
+    def sortList(head):
+        """
+        148. Linked List, Sort
+        :type head: ListNode
+        :rtype: ListNode
+        sort를 내가 구현한것이 아니라서 푼게 아니다.
+        Runtime: 296 ms, faster than 85.98% of Python online submissions for Sort List.
+        Memory Usage: 64.9 MB, less than 5.12% of Python online submissions for Sort List.
+        """
+        node1 = head
+        node2 = ListNode(0)
+        node3 = node2
+        lis = []
+        while(node1 != None):
+            lis.append(node1.val)
+            node1 = node1.next
+        lis = sorted(lis)
+        for i in range(len(lis)):
+            node2.next = ListNode(lis[i])
+            node2 = node2.next
+            
+        return node3.next
     
     
+    def partition(head, x):
+        """
+        86. Linked List, Two Pointers
+        :type head: ListNode
+        :type x: int
+        :rtype: ListNode
+        node5를 만들지 않고 했었음.
+        Runtime: 20 ms, faster than 87.44% of Python online submissions for Partition List.
+        Memory Usage: 13.4 MB, less than 90.23% of Python online submissions for Partition List.
+        """
+        node1 = head
+        node2 = ListNode(0)
+        node3 = ListNode(0)
+        node4 = node2
+        node5 = node3
+        while(node1 != None):
+            if(node1.val < x):
+                node2.next = node1
+                node1 = node1.next
+                node2 = node2.next
+            else:
+                node3.next = node1
+                node1 = node1.next
+                node3 = node3.next
+        node2.next = node5.next
+        node3.next = None
+        
+        return node4.next
+            
+        
+    def oddEvenList(head):
+        """
+        328. Linked List
+        :type head: ListNode
+        :rtype: ListNode
+        Runtime: 28 ms, faster than 88.49% of Python online submissions for Odd Even Linked List.
+        Memory Usage: 16.9 MB, less than 85.77% of Python online submissions for Odd Even Linked List.
+        """
+        node1 = head
+        node2 = ListNode(0)
+        node3 = ListNode(0)
+        node4 = node2
+        node5 = node3
+        idx = 1
+        while(node1 != None):
+            if(idx % 2 == 1):
+                node2.next = node1
+                node1 = node1.next
+                node2 = node2.next
+                idx += 1
+            else:
+                node3.next = node1
+                node1 = node1.next
+                node3 = node3.next
+                idx += 1
+        node2.next = node5.next
+        node3.next = None
+        
+        return node4.next
+            
+        
+    def addTwoNumbers2(l1, l2):
+        """
+        445. Linked List
+        Follow up: What if you cannot modify the input lists? In other words, reversing the lists is not allowed.
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        
+        """
+        #Follow up으로 풀어보자.
+        #각각 length 재주기
+        len1 = l1
+        len2 = l2
+        length1 = 0
+        length2 = 0
+        while(len1 != None):
+            len1 = len1.next
+            length1 += 1
+        while(len2 != None):
+            len2 = len2.next
+            length2 += 1
+        #7243 + 564라면 7243 + 0564로 맞춰준다. node의 자릿수를 큰 length + 1로 만들어준다.
+        nod = ListNode(0)
+        node = nod
+        node1 = ListNode(1)
+        node2 = ListNode(1)
+        node3 = node1
+        node4 = node2        
+        if(length1 > length2):
+            idx = length1 - length2
+            while(idx != 0):
+                node2.next = ListNode(0)
+                node2 = node2.next
+                idx -= 1
+            for i in range(length1):
+                nod.next = ListNode(0)
+                nod = nod.next
+        else:
+            idx = length2 - length1
+            while(idx != 0):
+                node1.next = ListNode(0)
+                node1 = node1.next
+                idx -= 1
+            for i in range(length2):
+                nod.next = ListNode(0)
+                nod = nod.next
+        node1.next = l1
+        node2.next = l2
+        #재귀함수를 통해 해결해보자!
+        def f(nod1,nod2,node):
+            if(nod1.next != None):
+                node.next , carry = f(nod1.next, nod2.next, node.next)
+            #맨 끝자리부터 일어날 일들
+            val1 = nod1.val
+            val2 = nod2.val
+            if(val1 + val2 > 9):
+                val3 = val1 + val2 - 10
+                carry = 1
+            else:
+                val3 = val1 + val2
+                carry = 0
+            
+            node = ListNode(val3)
+            
+            return node, carry
+            
+        
+            
     
     
-    
-    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
     
     
