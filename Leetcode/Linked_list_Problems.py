@@ -509,8 +509,8 @@ class Solution(object):
         node3.next = None
         
         return node4.next
-            
-        
+    
+    
     def addTwoNumbers2(l1, l2):
         """
         445. Linked List
@@ -518,7 +518,8 @@ class Solution(object):
         :type l1: ListNode
         :type l2: ListNode
         :rtype: ListNode
-        
+        Runtime: 64 ms, faster than 69.27% of Python online submissions for Add Two Numbers II.
+        Memory Usage: 13.7 MB, less than 19.35% of Python online submissions for Add Two Numbers II.
         """
         #Follow up으로 풀어보자.
         #각각 length 재주기
@@ -561,22 +562,31 @@ class Solution(object):
         node2.next = l2
         #재귀함수를 통해 해결해보자!
         def f(nod1,nod2,node):
+            carry = 0
             if(nod1.next != None):
-                node.next , carry = f(nod1.next, nod2.next, node.next)
+                carry = f(nod1.next, nod2.next, node.next)
             #맨 끝자리부터 일어날 일들
             val1 = nod1.val
             val2 = nod2.val
-            if(val1 + val2 > 9):
-                val3 = val1 + val2 - 10
+            if(val1 + val2 + carry > 9):
+                val3 = val1 + val2 + carry - 10
                 carry = 1
             else:
-                val3 = val1 + val2
+                val3 = val1 + val2 + carry
                 carry = 0
             
-            node = ListNode(val3)
+            node.val = val3
             
-            return node, carry
-            
+            return carry
+        #시작
+        carry = f(node3.next, node4.next, node.next)
+        #carry가 1이면 최고자리숫자를 더해서 올려진것이므로 node.val을 바꿔준다.
+        if(carry == 1):
+            node.val = 1
+            return node
+        #carry가 0이면 node의 맨앞 0은 쓸모가 없어지므로
+        else:
+            return node.next
         
             
     
