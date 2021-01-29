@@ -32,7 +32,9 @@ class Solution(object):
         """
         :type tokens: List[str]
         :rtype: int
-        ["10","6","9","3","+","-11","*","/","*","17","+","5","+"] : 파이썬에서는 돌아가는데 Leetcode에서는 안돌아감;
+        ["10","6","9","3","+","-11","*","/","*","17","+","5","+"] : 파이썬3에서는 돌아가는데 Leetcode 파이썬에서는 안돌아감
+        Runtime: 60 ms, faster than 93.10% of Python3 online submissions for Evaluate Reverse Polish Notation.
+        Memory Usage: 14.8 MB, less than 9.89% of Python3 online submissions for Evaluate Reverse Polish Notation.
         """
         stack = [0]
         idx = 0
@@ -65,8 +67,8 @@ class Solution(object):
                 stack.append(int(element))
                 idx += 1
         return stack[idx]
-                
-            
+        
+#stack은 뭔가 싫어요숫자가 많네...            
             
             
             
