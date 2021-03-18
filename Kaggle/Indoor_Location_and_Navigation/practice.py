@@ -14,7 +14,7 @@ warnings.filterwarnings('ignore')
 from tqdm import tqdm
 
 import json
-'import plotly.graph_objs as go'
+import plotly.graph_objs as go
 from PIL import Image
 
 #2
@@ -119,7 +119,8 @@ def read_data_file(data_filename):
     
     return ReadData(acce, acce_uncali, gyro, gyro_uncali, magn, magn_uncali, ahrs, wifi, ibeacon, waypoint)
 
-sample_file = read_data_file("../input/indoor-location-navigation/train/5a0546857ecc773753327266/F2/5dccf516c04f060006e6e3c9.txt")
+#sample_file = read_data_file("../input/indoor-location-navigation/train/5a0546857ecc773753327266/F2/5dccf516c04f060006e6e3c9.txt")
+sample_file = read_data_file("train/5a0546857ecc773753327266/F2/5dccf516c04f060006e6e3c9.txt")
 
 print('acce shape:', sample_file.acce.shape)
 print('acce_uncali shape:', sample_file.acce_uncali.shape)
