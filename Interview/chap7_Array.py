@@ -84,7 +84,107 @@ class Solution(object):
         left_max, right_max = height[left], height[right]
         
         while left < right:
+            left_max, right_max = max(height[left], left_max), max(height[right], right_max)
+            # 더 높은쪽으로 투포인터 이동
+            if left_max <= right_max :
+                volume += left_max - height[left]
+                left += 1
+            else:
+                volume += right_max - height[right]
+                right -= 1
+        
+        return volume
+    
+    
+    def trap3(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        #스택 다시보고 이해해보기
+        stack = []
+        volume = 0
+        
+        for i in range(len(height)):
+            while stack and height[i] > height[stack[-1]]:
+                #스택에서 꺼낸다
+                top = stack.pop()
+                
+                if not len(stack):
+                    break
+                
+                #이전과의 차이만큼 물 높이 처리
+                distance = i - stack[-1] -1
+                waters = min(height[i], height[stack[-1]]) - height[top]
+                
+                volume += distance * waters
             
+            stack.append(i)
+        return volume
+    
+    
+    
+    def threeSum1(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        #패스
+        return None
+    
+    
+    def arrayPairSum1(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #내풀이
+        summ = 0
+        nums = sorted(nums)
+        
+        for i in range(0,len(nums),2):
+            summ += nums[i]
+            
+        return summ
+    
+    def arrayPairSum2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        summ = 0
+        nums = sorted(nums)
+        
+        for i, n in enumerate(nums):
+            if i % 2 == 0:
+                summ += n
+        
+        return summ
+    
+    
+    def arrayPairSum3(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #파이썬다운풀이
+        return sum(sorted(nums)[::2])
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
