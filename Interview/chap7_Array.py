@@ -168,7 +168,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        #파이썬다운풀이 wow ...!hihihasfdasd
+        #파이썬다운풀이 wow ...! 오늘도 파이팅!
         return sum(sorted(nums)[::2])
     
     
