@@ -168,7 +168,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        #파이썬다운풀이 wow ...!    다시 제대로ads 해보자!
+        #파이썬다운풀이 wow ...!  다시 제대로해보자!
         return sum(sorted(nums)[::2])
     
     
@@ -178,6 +178,30 @@ class Solution(object):
     
     
     
+    
+    def arrayPairSum3(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #파이썬다운풀이 wow ...!  다시 제대로해보자!
+        return sum(sorted(nums)[::2])
+    
+    def arrayPairSum3(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #파이썬다운풀이 wow ...!  다시 제대로해보자!
+        return sum(sorted(nums)[::2])
+    
+    def arrayPairSum3(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #파이썬다운풀이 wow ...!  다시 제대로해보자!
+        return sum(sorted(nums)[::2])
     
     
     
