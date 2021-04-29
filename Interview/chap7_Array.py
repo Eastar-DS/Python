@@ -168,7 +168,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        #파이썬다운풀이 wow ...!  나는 챌린저를 갈 사나이다!!!
+        #파이썬다운풀이 wow ...!  나는 챌린저를 갈 사나이다!!! asdf
         return sum(sorted(nums)[::2])
     
     
