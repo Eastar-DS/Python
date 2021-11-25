@@ -21,6 +21,7 @@ Day5 Two Pointers :
 
 
 class Solution:
+#day1
     def search(self, nums: List[int], target: int) -> int:
         left, right = 0, len(nums)-1
         if(target < nums[0] or nums[-1] < target):
@@ -125,6 +126,27 @@ class My_Solution:
                 return index
         return -1
 
+    "다른문제 풀고 다시푸니까 런타임 좋아짐. 이게 logN이지~~"
+    def search2(self, nums: List[int], target: int) -> int:
+        left, right = 0,len(nums)-1        
+        index = right // 2
+        if(target < nums[0] or nums[-1] < target):
+            return -1
+        while(index > left):            
+            if(nums[index] == target):
+                return index
+            if(nums[index] < target):
+                left = index
+            else:
+                right = index                
+            index = (left + right) // 2
+            
+        if(target == nums[right]):
+            return right
+        if(target == nums[left]):
+            return left
+        else:
+            return -1
 
 
     def firstBadVersion(self, n):
@@ -184,16 +206,9 @@ class My_Solution:
                 right = index
         
         "남은경우의수는 왼쪽보다 크거나 오른쪽보다 작거나 같음."
-            
-            
-            
-            
 
 
-
-
-
-"""
+    """
 Given a sorted array of distinct integers and a target value, 
     return the index if the target is found. If not, return the index 
         where it would be if it were inserted in order.
@@ -201,27 +216,45 @@ Given a sorted array of distinct integers and a target value,
 You must write an algorithm with O(log n) runtime complexity.
 
 Example 1:
-
 Input: nums = [1,3,5,6], target = 5
 Output: 2
-Example 2:
 
+Example 2:
 Input: nums = [1,3,5,6], target = 2
 Output: 1
-Example 3:
 
+Example 3:
 Input: nums = [1,3,5,6], target = 7
 Output: 4
-Example 4:
 
+Example 4:
 Input: nums = [1,3,5,6], target = 0
 Output: 0
-Example 5:
 
+Example 5:
 Input: nums = [1], target = 0
 Output: 0
-"""
+    """
 
+
+
+#day2
+    "엄청느리네"
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        left, right = 0, len(nums) - 1
+        leftval, rightval = nums[left]**2, nums[right]**2
+        output = []
+        while(left <= right):
+            if(leftval < rightval):
+                output = [rightval] + output
+                right -= 1
+                rightval = nums[right]**2
+            else:
+                output = [leftval] + output
+                left += 1
+                if(left<len(nums)):
+                    leftval = nums[left]**2
+        return output
 
 
 
