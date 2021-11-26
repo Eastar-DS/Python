@@ -109,6 +109,75 @@ class Solution:
 
 
 
+#day2
+    "이개념 익히고싶다."
+    """
+class SquaresIterator(object):
+    def __init__(self, sorted_array):
+        self.sorted_array = sorted_array
+        self.left_pointer = 0
+        self.right_pointer = len(sorted_array) - 1
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.left_pointer > self.right_pointer:
+            raise StopIteration
+        left_square = self.sorted_array[self.left_pointer] ** 2
+        right_square = self.sorted_array[self.right_pointer] ** 2
+        if left_square > right_square:
+            self.left_pointer += 1
+            return left_square
+        else:
+            self.right_pointer -= 1
+            return right_square
+        
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        return_array = [0] * len(nums)
+        write_pointer = len(nums) - 1
+        for square in SquaresIterator(nums):
+            return_array[write_pointer] = square
+            write_pointer -= 1
+        return return_array
+    """
+
+
+
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        kk = k % n
+        if(kk > 0):
+            nums[:] = nums[n-kk:n] + nums[:n-kk]
+
+
+
+    def rotate2(self, nums: List[int], k: int) -> None:
+        """
+        이게 왜 더빠른지 정말 신기하네...
+        """
+        def numReverse(start, end):
+            while start < end:
+                nums[start], nums[end] = nums[end], nums[start]
+                start += 1
+                end -= 1
+        k, n = k % len(nums), len(nums)
+        if k:
+            numReverse(0, n - 1)
+            numReverse(0, k - 1)
+            numReverse(k, n - 1)  
+
+
+
+
+
+
+
+
+
 
 
 
@@ -259,8 +328,15 @@ Output: 0
 
 
 
-
-
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        kk = k % len(nums)
+        while(kk > 0):
+            kk -= 1
+            element = nums.pop()
+            nums.insert(0,element)
 
 
 
