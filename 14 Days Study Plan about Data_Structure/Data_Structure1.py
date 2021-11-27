@@ -11,7 +11,7 @@ from typing import *
 """
 Day 1 Array : 217. Contains Duplicate, 53. Maximum Subarray
 Day 2 Array : 1. Two Sum, 88. Merge Sorted Array
-Day 3 Array : 
+Day 3 Array : 350. Intersection of Two Arrays II, 121. Best Time to Buy and Sell Stock
 Day 4 Array : 
 Day 5 Array : 
 """
@@ -49,7 +49,29 @@ class Solution:
     
     
     
-class My_Solution:
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+class MySolution:
     "솔루션 유료"
     """Time complexity: O(N lg N), 
                 memory: O(1) - not counting the memory used by sort"""
@@ -138,8 +160,15 @@ Output: 23
 
 
 
-
-
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        """
+        Input: nums1 = [1,2,2,1], nums2 = [2,2]
+        Output: [2,2]
+        
+        Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+        Output: [4,9]
+        """
+        
 
 
 

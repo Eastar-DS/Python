@@ -11,7 +11,7 @@ from typing import *
 """
 Day1 Binary Search : 704. Binary Search, 278. First Bad Version, 35. Search Insert Position
 Day2 Two Pointers : 977. Squares of a Sorted Array, 189. Rotate Array
-Day3 Two Pointers : 
+Day3 Two Pointers : 283. Move Zeroes, 167. Two Sum II - Input Array Is Sorted
 Day4 Two Pointers : 
 Day5 Two Pointers : 
 
@@ -171,10 +171,21 @@ class SquaresIterator(object):
             numReverse(k, n - 1)  
 
 
+#Day3
+    def moveZeroes(self, nums: list) -> None:
+        slow = 0
+        for fast in range(len(nums)):
+            if nums[fast] != 0 and nums[slow] == 0:
+                nums[slow], nums[fast] = nums[fast], nums[slow]
+
+            # wait while we find a non-zero element to
+            # swap with you
+            if nums[slow] != 0:
+                slow += 1
 
 
-
-
+    #def twoSum(self, numbers: List[int], target: int) -> List[int]:
+     
 
 
 
@@ -373,6 +384,7 @@ Output: 0
 
 
 
+#day3
     def moveZeroes(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
@@ -385,6 +397,50 @@ Output: 0
                 nums.append(0)
             else:
                 index += 1
+
+
+
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        """
+        Input: numbers = [2,7,11,15], target = 9
+        Output: [1,2]
+        
+        Input: numbers = [-1,0], target = -1
+        Output: [1,2]
+        """
+        dic = {}
+        for idx, num in enumerate(numbers):
+            if((target - num) in dic):
+                return[dic[target - num] + 1, idx + 1]
+                
+            else:
+                #idx1
+                dic[num] = idx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
