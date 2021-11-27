@@ -184,7 +184,40 @@ class SquaresIterator(object):
 
 
 
-class My_Solution:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class MySolution:
     def search(self, nums: List[int], target: int) -> int:
         index = -1
         if(target < nums[0] or nums[-1] < target):
@@ -340,7 +373,18 @@ Output: 0
 
 
 
-
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        Note that you must do this in-place without making a copy of the array.
+        """
+        index = 0
+        for i in range(len(nums)):
+            if(nums[index] == 0):
+                nums.pop(index)
+                nums.append(0)
+            else:
+                index += 1
 
 
 
