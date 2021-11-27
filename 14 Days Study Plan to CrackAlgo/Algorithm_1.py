@@ -12,8 +12,8 @@ from typing import *
 Day1 Binary Search : 704. Binary Search, 278. First Bad Version, 35. Search Insert Position
 Day2 Two Pointers : 977. Squares of a Sorted Array, 189. Rotate Array
 Day3 Two Pointers : 283. Move Zeroes, 167. Two Sum II - Input Array Is Sorted
-Day4 Two Pointers : 
-Day5 Two Pointers : 
+Day4 Two Pointers : 344. Reverse String, 557. Reverse Words in a String III
+Day5 Two Pointers : 876. Middle of the Linked List, 19. Remove Nth Node From End of List
 
 
  
