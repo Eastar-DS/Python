@@ -14,8 +14,13 @@ Day2 Two Pointers : 977. Squares of a Sorted Array, 189. Rotate Array
 Day3 Two Pointers : 283. Move Zeroes, 167. Two Sum II - Input Array Is Sorted
 Day4 Two Pointers : 344. Reverse String, 557. Reverse Words in a String III
 Day5 Two Pointers : 876. Middle of the Linked List, 19. Remove Nth Node From End of List
-
-
+Day 6 Sliding Window : 3. Longest Substring Without Repeatin, 567. Permutation in String
+Day 7 Breadth-First Search / Depth-First Search : 
+    733. Flood Fill, 695. Max Area of Island
+Day 8 Breadth-First Search / Depth-First Search : 
+    617. Merge Two Binary Trees, 116. Populating Next Right Pointers in Each Node
+Day 9 Breadth-First Search / Depth-First Search : 
+    542. 01 Matrix, 994. Rotting Oranges
  
 """
 
@@ -187,13 +192,71 @@ class SquaresIterator(object):
     #def twoSum(self, numbers: List[int], target: int) -> List[int]:
      
 
+#day4
+    def reverseString(self, s: List[str]) -> None:
+        s[:] = s[::-1]
+
+
+    def reverseWords(self, s):
+        """
+        output을 거꾸로해보면 띄어쓰기단위로 거꾸로 배열됨. 
+        그렇다면 인풋을 띄어쓰기단위로 거꾸로만들고 나온 스트링을
+        거꾸로하면 output이 나오겠구나!
+        """
+        return ' '.join(s.split()[::-1])[::-1]
+
+    def reverseWords2(self, s):
+        return ' '.join(x[::-1] for x in s.split())
+
+
+    """
+    >>> from timeit import timeit
+    >>> setup = 's = "Let\'s take LeetCode contest"'
+    >>> statements = ("' '.join(s.split()[::-1])[::-1]",
+	          "' '.join(x[::-1] for x in s.split())",
+	          "' '.join([x[::-1] for x in s.split()])")
+    >>> for stmt in statements:
+        print ' '.join('%.2f' % timeit(stmt, setup) for _ in range(5)), 'seconds for:', stmt
+
+    0.79 0.78 0.80 0.82 0.79 seconds for: ' '.join(s.split()[::-1])[::-1]
+    2.10 2.14 2.08 2.06 2.13 seconds for: ' '.join(x[::-1] for x in s.split())
+    1.27 1.26 1.28 1.28 1.26 seconds for: ' '.join([x[::-1] for x in s.split()])
+    
+    
+    >>> setup = 's = "Let\'s take LeetCode contest" * 1000'
+    >>> for stmt in statements:
+        print ' '.join('%.2f' % timeit(stmt, setup, number=1000) for _ in range(5)), 'seconds for:', stmt
+
+    0.16 0.14 0.13 0.14 0.14 seconds for: ' '.join(s.split()[::-1])[::-1]
+    0.69 0.71 0.69 0.70 0.70 seconds for: ' '.join(x[::-1] for x in s.split())
+    0.63 0.68 0.63 0.64 0.64 seconds for: ' '.join([x[::-1] for x in s.split()])
+    """
 
 
 
+#day5
+    def middleNode(self, head):
+        "아이디어 진짜 심플하고 좋다..."
+        tmp = head
+        while tmp and tmp.next:
+            head = head.next
+            tmp = tmp.next.next
+        
+        return head
 
 
 
-
+    def removeNthFromEnd(self, head, n):
+        dummy = ListNode(0)
+        dummy.next = head
+        fast = slow = dummy
+        for i in range(n):
+            fast = fast.next
+        while fast and fast.next:
+            fast = fast.next
+            slow = slow.next
+        slow.next = slow.next.next
+        return dummy.next
 
 
 
@@ -418,27 +481,107 @@ Output: 0
                 dic[num] = idx
 
 
+#day4
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        You must do this by modifying the input array in-place with O(1) extra memory.
+        
+        Input: s = ["h","e","l","l","o"]
+        Output: ["o","l","l","e","h"]
+        
+        Input: s = ["H","a","n","n","a","h"]
+        Output: ["h","a","n","n","a","H"]
+        """
+        left, right = 0, len(s) - 1
+        while(left < right):
+            s[left], s[right] = s[right], s[left]
+            left += 1
+            right -= 1
+
+
+    def reverseWords(self, s: str) -> str:
+        output = ''
+        word = ''
+        for string in s:            
+            if(string != ' '):
+                word = string + word
+            else:
+                output = output + word + string
+                word = ''
+        
+        if(word):
+            output += word
+            
+        return output
 
 
 
+#day5
+#Definition for singly-linked list.
+    class ListNode:
+        def __init__(self, val=0, next=None):
+            self.val = val
+            self.next = next
+            
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        Input: head = [1,2,3,4,5]
+        Output: [3,4,5]
+        
+        Input: head = [1,2,3,4,5,6]
+        Output: [4,5,6]
+        """
+        length = 1
+        len_head = head
+        while(len_head.next):
+            length += 1
+            len_head = len_head.next
+        
+        length //= 2
+        
+        output = head
+        while(length):
+            output = output.next
+            length -= 1
+
+        return output
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        """
+        Input: head = [1,2,3,4,5], n = 2
+        Output: [1,2,3,5]
+        
+        Input: head = [1], n = 1
+        Output: []
+        
+        Input: head = [1,2], n = 1
+        Output: [1]
+        
+        """
+        if(not head.next):
+            return head.next
+            
+        length = 1
+        len_head = head
+        while(len_head.next):
+            length += 1
+            len_head = len_head.next
+            
+        #[1,2], n = 2 오류수정
+        if(length == n):
+            return head.next
+        
+        index = length - n - 1
+        head2 = head
+        while(index):
+            head2 = head2.next
+            index -= 1        
+            
+        head2.next = head2.next.next
+        
+        return head
 
 
 
