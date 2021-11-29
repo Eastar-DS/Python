@@ -291,6 +291,31 @@ class SquaresIterator(object):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class MySolution:
     def search(self, nums: List[int], target: int) -> int:
         index = -1
@@ -501,6 +526,10 @@ Output: 0
 
 
     def reverseWords(self, s: str) -> str:
+        """
+        Input: s = "Let's take LeetCode contest"
+        Output: "s'teL ekat edoCteeL tsetnoc"
+        """
         output = ''
         word = ''
         for string in s:            
@@ -517,7 +546,7 @@ Output: 0
 
 
 
-#day5
+#Day5 Two Pointers : 876. Middle of the Linked List, 19. Remove Nth Node From End of List
 #Definition for singly-linked list.
     class ListNode:
         def __init__(self, val=0, next=None):
@@ -582,6 +611,110 @@ Output: 0
         head2.next = head2.next.next
         
         return head
+
+
+#Day 6 Sliding Window : 3. Longest Substring Without Repeatin, 567. Permutation in String
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        """
+        모르겠다...
+        Input: s = "abcabcbb"
+        Output: 3
+        
+        Input: s = "abba"
+        Output: 2
+        
+        Input: s = " "
+        Output: 1
+        
+        Input: s = ""
+        Output: 0
+        """
+        substring = {}
+        past = 0
+        current = 0
+        output = 0
+        for index,string in enumerate(s):
+            if(string in substring):                
+                past = current
+                current = index - substring[string]
+                print("i", index, past, current)
+            else:                
+                current += 1                
+                print("e", index, past, current)
+            substring[string] = index
+            output = max(past, current, output)
+            
+        return output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Day 7 Breadth-First Search / Depth-First Search : 
+#     733. Flood Fill, 695. Max Area of Island
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

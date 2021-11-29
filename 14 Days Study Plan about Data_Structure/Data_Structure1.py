@@ -358,7 +358,7 @@ Output: 23
             return 0
 
     
-#day4
+#Day 4 Array : 566. Reshape the Matrix, 118. Pascal's Triangle
     def matrixReshape(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
         """
         Input: mat = [[1,2],[3,4]], r = 1, c = 4
@@ -415,7 +415,7 @@ Output: 23
         return output
         
 
-#day5
+#Day 5 Array : 36. Valid Sudoku, 74. Search a 2D Matrix
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         #1 row
         for row in board:
