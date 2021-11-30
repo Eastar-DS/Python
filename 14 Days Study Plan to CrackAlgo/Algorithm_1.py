@@ -616,7 +616,7 @@ Output: 0
 #Day 6 Sliding Window : 3. Longest Substring Without Repeatin, 567. Permutation in String
     def lengthOfLongestSubstring(self, s: str) -> int:
         """
-        모르겠다...
+        이문제때문에 하루가 날아갔네 ㅡㅡ;
         Input: s = "abcabcbb"
         Output: 3
         
@@ -629,20 +629,17 @@ Output: 0
         Input: s = ""
         Output: 0
         """
-        substring = {}
-        past = 0
-        current = 0
+        dic_string = {}
+        length = 0
         output = 0
         for index,string in enumerate(s):
-            if(string in substring):                
-                past = current
-                current = index - substring[string]
-                print("i", index, past, current)
+            if(string in dic_string and dic_string[string] >= index - length):                
+                length = index - dic_string[string]
             else:                
-                current += 1                
-                print("e", index, past, current)
-            substring[string] = index
-            output = max(past, current, output)
+                length += 1
+                # print("e", index, past, current)
+            dic_string[string] = index
+            output = max(length, output)
             
         return output
 
