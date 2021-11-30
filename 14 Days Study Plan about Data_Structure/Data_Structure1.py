@@ -165,14 +165,51 @@ class Solution:
 
 
 
+#Day 6 String : 
+#     387. First Unique Character in a String, 383. Ransom Note, 242. Valid Anagram
+    def canConstruct(self, ransomNote, magazine):
+        return not collections.Counter(ransomNote) - collections.Counter(magazine)
 
 
+# Day 7 Linked List : 
+#     141. Linked List Cycle, 21. Merge Two Sorted Lists, 203. Remove Linked List Elements
+    def hasCycle(self, head):
+        slow = fast = head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            if slow == fast:
+                return True
+        return False
 
 
-
-
-
-
+    "try를 사용하는 풀이도 남겨두고싶어서 하나더적음"
+    def hasCycle2(self, head):
+        "48ms"
+        try:
+            slow = head
+            fast = head.next
+            while slow is not fast:
+                slow = slow.next
+                fast = fast.next.next
+            return True
+        except:
+            return False
+        
+#디스커스에 있는 천재들아 고마워!        
+    def mergeTwoLists(self, a, b):
+        if a and b:
+            if a.val > b.val:
+                a, b = b, a
+            a.next = self.mergeTwoLists(a.next, b)
+        return a or b          
+            
+    def mergeTwoLists2(self, a, b):
+        if not a or b and a.val > b.val:
+            a, b = b, a
+        if a:
+            a.next = self.mergeTwoLists(a.next, b)
+        return a
 
 
 
@@ -467,14 +504,184 @@ Output: 23
 
 
 
+#Day 6 String : 
+#     387. First Unique Character in a String, 383. Ransom Note, 242. Valid Anagram
+    def firstUniqChar(self, s: str) -> int:
+        """
+        Input: s = "leetcode"
+        Output: 0
+        
+        Input: s = "loveleetcode"
+        Output: 2
+        
+        Input: s = "aabb"
+        Output: -1
+        """
+        from collections import Counter
+        count = Counter(s)
+        for index, string in enumerate(s):
+            if(count[string] == 1):
+                return index
+        return -1
 
 
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        """
+        Runtime: 44 ms
+        
+        Input: ransomNote = "a", magazine = "b"
+        Output: false
+        
+        Input: ransomNote = "aa", magazine = "ab"
+        Output: false
+        
+        Input: ransomNote = "aa", magazine = "aab"
+        Output: true
+        """
+        from collections import Counter
+        ran_count = Counter(ransomNote)
+        mag_count = Counter(magazine)
+        output = True
+        for string in ran_count:
+            count = ran_count[string]
+            if(string in mag_count):
+                if(mag_count[string] < count):
+                    output = False
+            else:
+                output = False
+        return output
+        
+#살짝 개선        
+    def canConstruct2(self, ransomNote: str, magazine: str) -> bool:
+        "Runtime: 40 ms, faster than 93.17%"
+        from collections import Counter
+        ran_count = Counter(ransomNote)
+        output = True
+        
+        for string in ran_count:
+            count = ran_count[string]
+            if(string in magazine):
+                if(magazine.count(string) < count):
+                    output = False
+            else:
+                output = False
+        return output
 
 
+    def isAnagram(self, s: str, t: str) -> bool:
+        from collections import Counter
+        return Counter(s) == Counter(t)
+
+    
+# Day 7 Linked List : 
+#     141. Linked List Cycle, 21. Merge Two Sorted Lists, 203. Remove Linked List Elements
+
+    def hasCycle(self, head: Optional[ListNode]) -> bool:        
+        #Definition for singly-linked list.
+        class ListNode:
+            def __init__(self, x):
+                self.val = x
+                self.next = None
+        """
+        Input: head = [3,2,0,-4], pos = 1
+        Output: true
+        
+        Input: head = [1], pos = -1
+        Output: false
+        
+        Runtime: 56 ms, faster than 65.77%
+        Memory Usage: 18 MB, less than 17.48%
+        """
+        start = ListNode(None)
+        start.next = head
+        pos = -1
+        index = 0
+        dic = {}
+        while(start.next != None):
+            if(start.next not in dic):
+                dic[start.next] = index
+                start = start.next
+                index += 1
+            else:
+                pos = dic[start.next]
+                return True
+        return False
+                
+        
+
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:        
+        #Definition for singly-linked list.
+        class ListNode:
+            def __init__(self, val=0, next=None):
+                self.val = val
+                self.next = next
+        """
+        Input: list1 = [1,2,4], list2 = [1,3,4]
+        Output: [1,1,2,3,4,4]
+        
+        Input: list1 = [], list2 = []
+        Output: []
+        
+        Input: list1 = [], list2 = [0]
+        Output: [0]
+        
+        Runtime: 40 ms, faster than 57.29%
+        Memory Usage: 14.3 MB, less than 32.85%
+        """
+        head1, head2, output = ListNode(1,list1), ListNode(1,list2), ListNode()
+        output_head = ListNode(None, output)
+        
+        while(head1.next != None):
+            if(head2.next == None):
+                output.next = head1.next
+                return output_head.next.next
+                
+            if(head1.next.val <= head2.next.val):
+                output.next = ListNode(head1.next.val)
+                head1 = head1.next
+                output = output.next
+            else:
+                output.next = ListNode(head2.next.val)
+                head2 = head2.next
+                output = output.next
+        
+        output.next = head2.next
+        
+        return output_head.next.next
 
 
-
-
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        # Definition for singly-linked list.
+        class ListNode:
+            def __init__(self, val=0, next=None):
+                self.val = val
+                self.next = next
+        """
+        Input: head = [1,2,6,3,4,5,6], val = 6
+        Output: [1,2,3,4,5]
+        
+        Input: head = [], val = 1
+        Output: []
+        
+        Input: head = [7,7,7,7], val = 7
+        Output: []
+        
+        Runtime: Runtime: 68 ms, faster than 73.71%
+        Memory Usage: 18.8 MB, less than 8.90%
+        """
+        output = ListNode()
+        output_head = ListNode(0,output)
+        while(head):
+            if(head.val != val):
+                output.next = ListNode(head.val)
+                output = output.next
+                head = head.next
+            else:
+                head = head.next
+                
+        return output_head.next.next
+        
+        
 
 
 
