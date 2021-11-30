@@ -316,6 +316,34 @@ class SquaresIterator(object):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class MySolution:
     def search(self, nums: List[int], target: int) -> int:
         index = -1
@@ -637,41 +665,99 @@ Output: 0
                 length = index - dic_string[string]
             else:                
                 length += 1
-                # print("e", index, past, current)
             dic_string[string] = index
             output = max(length, output)
             
         return output
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        """
+        Input: s1 = "ab", s2 = "eidbaooo"
+        Output: true
+        
+        Input: s1 = "ab", s2 = "eidboaoo"
+        Output: false
+        """
+        from collections import Counter
+        len1 = len(s1)
+        len2 = len(s2)
+        if(len2 < len1):
+            return False
+        
+        #permutation 만들지말고, 안의 구성요소가 같은지 판단하면됨
+        #카운터라는 엄청나게 좋은 기능이있다.        
+        tool = Counter(s1)
+        for start in range(len2 - len1 + 1):
+            if(tool == Counter(s2[start:len1+start])):
+                return True
+            
+        return False
 
 # Day 7 Breadth-First Search / Depth-First Search : 
 #     733. Flood Fill, 695. Max Area of Island
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        """
+        한점에서 시작해서 사방으로 벨류를 바꾸는문제
+        """
+        m = len(image)
+        n = len(image[0])
+        currentColor = image[sr][sc]
+        
+        def ChangeColor(image, i,j):
+            image[i][j] = newColor
+            
+            if(i>0 and image[i-1][j] == currentColor):
+                ChangeColor(image, i-1, j)
+                
+            if(i<m-1 and image[i+1][j] == currentColor):
+                ChangeColor(image, i+1, j)
+                
+            if(j>0 and image[i][j-1] == currentColor):
+                ChangeColor(image, i, j-1)
+                
+            if(j<n-1 and image[i][j+1] == currentColor):
+                ChangeColor(image, i, j+1)
+                
+        if(currentColor != newColor):
+            ChangeColor(image, sr, sc)
+            
+        return image
+        
+
+#속도 99.97퍼!
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        """
+        물은 0, 땅은 1의 벨류를 갖는다. 가장 큰 땅을 구해라.
+        """
+        m,n = len(grid), len(grid[0])
+        output = 0
+        grid2 = grid.copy()
+        def LandSize(i,j,size = 0) -> int:
+            size += 1
+            grid2[i][j] = 0                        
+          
+            if(i < m-1 and grid2[i+1][j] == 1):
+                size = LandSize(i+1,j,size)
+                    
+            if(j < n-1 and grid2[i][j+1] == 1):
+                size = LandSize(i,j+1,size)
+            
+            if(i > 0 and grid2[i-1][j] == 1):
+                size = LandSize(i-1,j,size)
+                
+            if(j > 0 and grid2[i][j-1] == 1):
+                size = LandSize(i,j-1,size)
+                
+            return size
 
 
-
-
-
-
-
-
-
-
+        for i in range(m):
+            for j in range(n):
+                if(grid2[i][j] == 1):
+                    output = max(output, LandSize(i,j))
+                
+        return output
 
 
 
