@@ -213,6 +213,107 @@ class Solution:
 
 
 
+#Day 8 Linked List : 
+    #206. Reverse Linked List, 83. Remove Duplicates from Sorted List
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        헤드를 다음으로 넘기고 현재 화살표를 이전꺼로 바꾸는 간단한아이디어
+        Runtime: 32 ms, faster than 89.54%
+        Memory Usage: 15.5 MB, less than 93.80%
+        """
+        prev = None
+        while head:
+            curr = head
+            head = head.next
+            curr.next = prev
+            prev = curr
+        return prev
+
+
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        나는 벨류가 같으면 쭉 다음으로 넘겼는데 디스커스에서는 그다음껄로 가버림.        
+        속도랑 메모리는 같았음.
+        """
+        if head is None:
+            return head
+        curr = head
+        while curr.next:
+            if curr.next.val == curr.val:
+                curr.next = curr.next.next
+            else:
+                curr = curr.next
+        return head
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -682,11 +783,77 @@ Output: 23
         return output_head.next.next
         
         
-
-
-
-
-
+#Day 8 Linked List : 
+    #206. Reverse Linked List, 83. Remove Duplicates from Sorted List
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        class ListNode:
+            def __init__(self, val=0, next=None):
+                self.val = val
+                self.next = next
+        """
+        Input: head = [1,2,3,4,5]
+        Output: [5,4,3,2,1]
+        
+        Input: head = [1,2]
+        Output: [2,1]
+        
+        Input: head = []
+        Output: []
+        
+        Runtime: 36 ms, faster than 72.74%
+        Memory Usage: 20.2 MB, less than 5.60%
+        """
+        def reverse(past, curr, output = None):
+            if(curr.next):
+                output = reverse(past.next, curr.next, output)
+            else:
+                output = curr
+            curr.next = past
+            return output
+        
+        if(not head):
+            return None
+        if(not head.next):
+            return head
+        past = head
+        curr = head.next
+        output = reverse(past,curr)
+        head.next = None
+        
+        return output
+        
+        
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        class ListNode:
+            def __init__(self, val=0, next=None):
+                self.val = val
+                self.next = next
+        """
+        Input: head = [1,1,2]
+        Output: [1,2]
+        
+        Input: head = [1,1,2,3,3]
+        Output: [1,2,3]
+        
+        Runtime: 40 ms, faster than 83.74%
+        Memory Usage: 14.3 MB, less than 58.40%
+        """
+        if(not head):
+            return head
+        
+        dummy1, dummy2 = head, head
+        val = head.val
+        while(dummy1.next):
+            if(dummy1.next.val == val):
+                dummy1 = dummy1.next
+            else:
+                dummy2.next = dummy1.next
+                val = dummy1.next.val
+                dummy1 = dummy1.next
+                dummy2 = dummy2.next
+        #마지막 중복숫자처리
+        dummy2.next = None
+        return head
 
 
 

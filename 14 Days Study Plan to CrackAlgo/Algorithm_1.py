@@ -258,12 +258,52 @@ class SquaresIterator(object):
         slow.next = slow.next.next
         return dummy.next
 
+#Day 8 Breadth-First Search / Depth-First Search : 
+    # 617. Merge Two Binary Trees, 116. Populating Next Right Pointers in Each Node
+    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
+        "내풀이를 훨신 짧게 적어놨네 속도는 더느림."
+        if not root1 and not root2: return None
+        ans = TreeNode((root1.val if root1 else 0) + (root2.val if root2 else 0))
+        ans.left = self.mergeTrees(root1 and root1.left, root2 and root2.left)
+        ans.right = self.mergeTrees(root1 and root1.right, root2 and root2.right)
+        return ans
 
 
-
-
-
-
+    def connect1(self, root):
+        if root and root.left and root.right:
+            root.left.next = root.right
+            if root.next:
+                root.right.next = root.next.left
+        self.connect(root.left)
+        self.connect(root.right)
+ 
+    # BFS       
+    def connect2(self, root):
+        if not root:
+            return 
+        queue = [root]
+        while queue:
+            curr = queue.pop(0)
+            if curr.left and curr.right:
+                curr.left.next = curr.right
+                if curr.next:
+                    curr.right.next = curr.next.left
+            queue.append(curr.left)
+            queue.append(curr.right)
+    
+    # DFS 
+    def connect3(self, root):
+        if not root:
+            return 
+        stack = [root]
+        while stack:
+            curr = stack.pop()
+            if curr.left and curr.right:
+                curr.left.next = curr.right
+                if curr.next:
+                    curr.right.next = curr.next.left
+            stack.append(curr.right)
+            stack.append(curr.left)
 
 
 
@@ -760,13 +800,74 @@ Output: 0
         return output
 
 
+#Day 8 Breadth-First Search / Depth-First Search : 
+    # 617. Merge Two Binary Trees, 116. Populating Next Right Pointers in Each Node
+    def mergeTrees(self, root1, root2):
+        # Definition for a binary tree node.
+        class TreeNode:
+            def __init__(self, val=0, left=None, right=None):
+                self.val = val
+                self.left = left
+                self.right = right
+        """
+        Note: The merging process must start from the root nodes of both trees.
+        
+        Input: root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]
+        Output: [3,4,5,5,4,null,7]
+        
+        Input: root1 = [1], root2 = [1,2]
+        Output: [2,2]
+        
+        Runtime: 88 ms, faster than 63.31%
+        Memory Usage: 15.6 MB, less than 27.97%
+        """
+        output = TreeNode()
+        if(root1 == None and root2 == None):
+            return None
+        
+        if(root1 != None and root2 == None):
+            output = root1
+        if(root1 == None and root2 != None):
+            output = root2
+        
+        #root가 둘다 존재하는경우에만 함수를 다시부르면됨.
+        if(root1 != None and root2 != None):
+            output.val = root1.val + root2.val
+            if((root1.left != None) or (root2.left != None)):
+                output.left = self.mergeTrees(root1.left, root2.left)
+            if((root1.right != None) or (root2.right != None)):
+                output.right = self.mergeTrees(root1.right, root2.right)        
+             
+        return output
+        
+        
 
-
-
-
-
-
-
+    def connect(self, root: 'Node') -> 'Node':
+        class Node:
+            def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+                self.val = val
+                self.left = left
+                self.right = right
+                self.next = next
+        """
+        Runtime: 52 ms, faster than 98.41%
+        Memory Usage: 15.6 MB, less than 92.03%
+        """
+        if(not root):
+            return root
+        save = root.left
+        head = root
+        #while 조건 신경써야
+        while(head.left):
+            head.left.next = head.right                
+            if(head.next):
+                head.right.next = head.next.left
+                head = head.next
+            else:
+                head = save
+                save = save.left
+        
+        return root
 
 
 
