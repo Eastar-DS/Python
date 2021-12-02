@@ -856,10 +856,65 @@ Output: 23
         return head
 
 
+# Day 9 Stack / Queue : 
+#     20. Valid Parentheses, 232. Implement Queue using Stacks
+    def isValid(self, s: str) -> bool:
+        """
+        Runtime: 32 ms, faster than 69.56%
+        Memory Usage: 14.1 MB, less than 96.64%
+        """
+        valid_dic = {')':'(', '}':'{', ']':'['}
+        first = ['(','{','[']
+        stack = []
+        for string in s:
+            if(string in first):
+                stack.append(string)
+            else:
+                if(not stack):
+                    return False
+                if(stack[-1] == valid_dic[string]):
+                    stack.pop()
+                else:
+                    return False
+        if(stack):
+            return False
+        return True
+                
+#232. Implement Queue using Stacks
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.inStack, self.outStack = [], []
+
+    def push(self, x: int) -> None:
+        self.inStack.append(x)
+
+    def pop(self) -> int:
+        self.move()
+        return self.outStack.pop()
+
+    def peek(self) -> int:
+        self.move()
+        return self.outStack[-1]
+
+    def empty(self) -> bool:
+        return (not self.inStack) and (not self.outStack) 
 
 
-
-
+    def move(self):
+        """
+        :rtype nothing
+        """
+        if not self.outStack:
+            while self.inStack:
+                self.outStack.append(self.inStack.pop())
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
 
 
 
