@@ -870,14 +870,111 @@ Output: 0
         return root
 
 
+# Day 9 Breadth-First Search / Depth-First Search : 
+#     542. 01 Matrix, 994. Rotting Oranges
+
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        """
+        Input: mat = [[0,0,0],[0,1,0],[1,1,1]]
+        Output: [[0,0,0],[0,1,0],[1,2,1]]
+        
+        Runtime: 1264 ms, faster than 7.95%
+        Memory Usage: 33.3 MB, less than 6.41%
+        하루종일 이것만했다 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ^
+        덕분에 데크도 써봅니다....        
+        """
+        #output = [[-1]*(n+2)]*(m+2) 로 하니까 원소하나를 바꾸면 한열의 모든원소가 바뀜 ㅡㅡ
+        m,n = len(mat), len(mat[0])
+        import numpy as np
+        output = np.array([[-1]*(n+2)]*(m+2))
+        
+        from collections import deque
+        indexlist = deque([])
+        
+        for i in range(m):
+            for j in range(n):
+                if(mat[i][j] == 0):
+                    output[i+1][j+1] = 0
+                    indexlist.append([i+1,j+1])
+                    
+        
+        # while(-1 in output[1:-1][k] for k in range(1,n+1)):
+        while(indexlist):
+            [i,j] = indexlist.popleft()
+            dis = output[i][j] + 1
+                
+            index = [[i,j+1],[i+1,j],[i,j-1],[i-1,j]]
+            
+            for [x,y] in index:
+                if(x <1 or y<1 or x>m or y>n):
+                    continue
+                
+                if(output[x][y] == -1):
+                    output[x][y] = dis
+                    indexlist.append([x,y])
+        
+        #output 정리
+        output = output[1:-1,1:-1]
+            
+        return output
 
 
-
-
-
-
-
-
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        """
+        Runtime: 104 ms, faster than 5.33%
+        Memory Usage: 31.1 MB, less than 10.89%
+        
+        넘모어렵다....
+        """
+        from collections import deque
+        two_list = deque([])
+        import numpy as np
+        npgrid = np.array(grid)
+        
+        m,n = len(grid), len(grid[0])
+        
+        #2골라서 저장
+        for i in range(m):
+            for j in range(n):
+                if(npgrid[i][j] == 2):
+                    two_list.append([i,j,0])
+        
+        #2가 없을때 1이 있는지확인.
+        if(not two_list):
+            for i in range(m):
+                for j in range(n):
+                    if(npgrid[i][j] == 1):
+                        return -1
+            return 0
+        
+        #상하좌우 썩게만드는함수
+        def MakeRotten(x,y,time):
+            if(x>0 and grid[x-1][y] == 1):
+                grid[x-1][y] = 2
+                two_list.append([x-1,y,time+1])
+            if(x<m-1 and grid[x+1][y] == 1):
+                grid[x+1][y] = 2
+                two_list.append([x+1,y,time+1])
+            if(y>0 and grid[x][y-1] == 1):
+                grid[x][y-1] = 2
+                two_list.append([x,y-1,time+1])
+            if(y<n-1 and grid[x][y+1] == 1):
+                grid[x][y+1] = 2
+                two_list.append([x,y+1,time+1])
+            
+        #다썩을때까지 걸리는시간구하기.        
+        while(two_list):
+            [x,y,time] = two_list.popleft()
+            MakeRotten(x,y,time)
+        
+        #1있으면 -1반환
+        for i in range(m):
+            for j in range(n):
+                if(grid[i][j] == 1):
+                    return -1        
+        
+        return time
+            
 
 
 
