@@ -255,17 +255,32 @@ class Solution:
         return head
 
 
+# Day 10 Tree : 
+#     144. Binary Tree Preorder Traversal, 94. Binary Tree Inorder Traversal, 145. Binary Tree Postorder Traversal
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        """스택을 이용한풀이"""
+        ret = []
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            if node:
+                ret.append(node.val)
+                stack.append(node.right)
+                stack.append(node.left)
+        return ret
 
 
+    "W T F!!!!!"
+    def preorder(root):
+        return [root.val] + preorder(root.left) + preorder(root.right) if root else []
 
 
+    def inorder(root):
+        return  inorder(root.left) + [root.val] + inorder(root.right) if root else []
 
 
-
-
-
-
-
+    def postorder(root):
+        return  postorder(root.left) + postorder(root.right) + [root.val] if root else []
 
 
 
@@ -936,19 +951,71 @@ Output: 23
                 self.left = left
                 self.right = right
         """
+        Input: root = [1,null,2,3]
+        Output: [1,2,3]
         
+        Input: root = []
+        Output: []
+        
+        Input: root = [1,2]
+        Output: [1,2]      
+        
+        Runtime: 24 ms, faster than 96.37%
+        Memory Usage: 14 MB, less than 91.77%
         """
+        output = []
+        if(root):
+            output.append(root.val)
+            if(root.left):
+                output += self.preorderTraversal(root.left)
+            if(root.right):
+                output += self.preorderTraversal(root.right)
         
+        return output
 
 
 
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        """
+        Input: root = [1,null,2,3]
+        Output: [1,3,2]
+        
+        Input: root = []
+        Output: []
+        
+        Input: root = [1,2]
+        Output: [2,1]      
+        
+        Runtime: 32 ms, faster than 65.64%
+        Memory Usage: 14.1 MB, less than 76.44%
+        """
+        output = []        
+        if(root):
+            if(root.left):
+                output += self.inorderTraversal(root.left)
+                
+            output.append(root.val)
+            
+            if(root.right):
+                output += self.inorderTraversal((root.right))
+        
+        return output
 
 
-
-
-
-
-
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        """
+        Runtime: 32 ms, faster than 65.93%
+        Memory Usage: 14.3 MB, less than 13.58%
+        """
+        output = []
+        if(root):
+            if(root.left):
+                output += self.postorderTraversal((root.left))
+            if(root.right):
+                output += self.postorderTraversal((root.right))
+            output.append(root.val)
+        
+        return output
 
 
 
