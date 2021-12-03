@@ -21,7 +21,15 @@ Day 8 Breadth-First Search / Depth-First Search :
     617. Merge Two Binary Trees, 116. Populating Next Right Pointers in Each Node
 Day 9 Breadth-First Search / Depth-First Search : 
     542. 01 Matrix, 994. Rotting Oranges
- 
+    
+Day 10 Recursion / Backtracking : 21. Merge Two Sorted Lists, 206. Reverse Linked List
+Day 11 Recursion / Backtracking : 
+    77. Combinations, 46. Permutations, 784. Letter Case Permutation
+Day 12 Dynamic Programming : 
+    70. Climbing Stairs, 198. House Robber, 120. Triangle
+Day 13 Bit Manipulation : 231. Power of Two, 191. Number of 1 Bits
+Day 14 Bit Manipulation : 190. Reverse Bits, 136. Single Number
+
 """
 
 
@@ -976,7 +984,8 @@ Output: 0
         return time
             
 
-
+#Day 10 Recursion / Backtracking : 21. Merge Two Sorted Lists, 206. Reverse Linked List
+"다 푼거네."
 
 
 
