@@ -23,7 +23,16 @@ Day 8 Linked List :
 Day 9 Stack / Queue : 
     20. Valid Parentheses, 232. Implement Queue using Stacks
 
-
+Day 10 Tree : 
+    144. Binary Tree Preorder Traversal, 94. Binary Tree Inorder Traversal, 145. Binary Tree Postorder Traversal
+Day 11 Tree : 
+    102. Binary Tree Level Order Traversal, 104. Maximum Depth of Binary Tree, 101. Symmetric Tree
+Day 12 Tree : 
+    226. Invert Binary Tree, 112. Path Sum
+Day 13 Tree : 
+    700. Search in a Binary Search Tree, 701. Insert into a Binary Search Tree
+Day 14 Tree : 
+    98. Validate Binary Search Tree, 653. Two Sum IV - Input is a BST, 235. Lowest Common Ancestor of a Binary Search Tree
 """
 
 class Solution:
@@ -918,8 +927,18 @@ Output: 23
 
 
 
-
-
+# Day 10 Tree : 
+#     144. Binary Tree Preorder Traversal, 94. Binary Tree Inorder Traversal, 145. Binary Tree Postorder Traversal
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        class TreeNode:
+            def __init__(self, val=0, left=None, right=None):
+                self.val = val
+                self.left = left
+                self.right = right
+        """
+        
+        """
+        
 
 
 
