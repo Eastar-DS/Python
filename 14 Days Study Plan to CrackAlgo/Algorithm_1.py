@@ -314,12 +314,26 @@ class SquaresIterator(object):
             stack.append(curr.left)
 
 
+#Day 11 Recursion / Backtracking : 
+    # 77. Combinations, 46. Permutations, 784. Letter Case Permutation
+    
+#recursive
+    def combine1(self, n: int, k: int) -> List[List[int]]:
+        if k == 0:
+            return [[]]
+        return [pre + [i] for i in range(k, n+1) for pre in self.combine1(i-1, k-1)]
 
-
-
-
-
-
+#iterative
+    def combine2(self, n, k):
+        combs = [[]]
+        for _ in range(k):
+            combs = [[i] + c for c in combs for i in range(1, c[0] if c else n+1)]
+        return combs
+#Reduce
+    def combine3(self, n, k):
+        from functools import reduce
+        return reduce(lambda C, _: [[i]+c for c in C for i in range(1, c[0] if c else n+1)],
+                  range(k), [[]])
 
 
 
@@ -985,23 +999,85 @@ Output: 0
             
 
 #Day 10 Recursion / Backtracking : 21. Merge Two Sorted Lists, 206. Reverse Linked List
-"다 푼거네."
+    "다 푼거네."
 
 
+#Day 11 Recursion / Backtracking : 
+    # 77. Combinations, 46. Permutations, 784. Letter Case Permutation
+
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        """
+        [1,n]사이 k개숫자로 이루어진 리스트
+        
+        Input: n = 4, k = 2
+        Output:
+            [
+                [2,4],
+                [3,4],
+                [2,3],
+                [1,2],
+                [1,3],
+                [1,4],
+            ]
+            
+        Input: n = 1, k = 1
+        Output: [[1]]
+        
+        Runtime: 76 ms, faster than 97.46%
+        Memory Usage: 15.6 MB, less than 81.04%
+        """
+        from itertools import combinations
+        input_num = []
+        for i in range(1,n+1):
+            input_num.append(i)
+        output = []
+        c = combinations(input_num, k)
+        for element in c:
+            output.append(list(element))
+        return output
 
 
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        """
+        Input: nums = [1,2,3]
+        Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+        
+        Runtime: 36 ms, faster than 90.06%
+        Memory Usage: 14.3 MB, less than 90.15%
+        이건 할만했다 휴...
+        """
+        output = []
+        if(len(nums) > 1):
+            for num in nums:
+                array = nums.copy()
+                array.remove(num)
+                output += [[num] + per for per in self.permute(array)]                
+        else:
+            return []
+        
+        return output
 
+    def permute1(self, nums):
+        return list(itertools.permutations(nums))
 
-
-
-
-
-
-
-
-
-
-
+    
+    def letterCasePermutation(self, s: str) -> List[str]:
+        """
+        디스커스 참고후품
+        
+        Runtime: 67 ms, faster than 36.30%
+        Memory Usage: 14.7 MB, less than 92.14%
+        """
+        output = ['']
+        for string in s:
+            if(string.isalpha()):
+                output = [a + b for a in output for b in [string, string.swapcase()]]
+            else:
+                output = [a + string for a in output]
+        
+        return output
+                    
+        
 
 
 
