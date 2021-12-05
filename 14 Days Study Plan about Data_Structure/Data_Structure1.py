@@ -1018,11 +1018,63 @@ Output: 23
         return output
 
 
-
-
-
-
-
-
-
+#Day 11 Tree : 
+    # 102. Binary Tree Level Order Traversal, 104. Maximum Depth of Binary Tree, 101. Symmetric Tree
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        """
+        디스커스보고품
+        Input: root = [3,9,20,null,null,15,7]
+        Output: [[3],[9,20],[15,7]]
         
+        Input: root = [1]
+        Output: [[1]]
+        
+        Input: root = []
+        Output: []
+        
+        Runtime: 41 ms, faster than 26.38%
+        Memory Usage: 14.6 MB, less than 44.67%
+        """
+        if(not root):
+            return []
+        output = []
+        level = [root]
+        while(level):
+            output.append([lv.val for lv in level])
+            temp = []
+            for node in level:
+                temp.extend([node.left, node.right])
+            level = [tem for tem in temp if tem]
+            
+        return output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
