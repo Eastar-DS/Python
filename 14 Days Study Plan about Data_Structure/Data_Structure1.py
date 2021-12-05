@@ -286,8 +286,16 @@ class Solution:
 
 
 
+#Day 11 Tree : 
+    # 102. Binary Tree Level Order Traversal, 104. Maximum Depth of Binary Tree, 101. Symmetric Tree
 
-
+    def levelOrder(self, root):
+        ans, level = [], [root]
+        while root and level:
+            ans.append([node.val for node in level])
+            LRpair = [(node.left, node.right) for node in level]
+            level = [leaf for LR in LRpair for leaf in LR if leaf]
+        return ans
 
 
 
@@ -1047,6 +1055,87 @@ Output: 23
             level = [tem for tem in temp if tem]
             
         return output
+
+
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        """
+        Input: root = [3,9,20,null,null,15,7]
+        Output: 3
+        
+        Input: root = [1,null,2]
+        Output: 2
+        
+        Input: root = []
+        Output: 0
+        
+        Input: root = [0]
+        Output: 1
+        
+        Runtime: 40 ms, faster than 77.89%
+        Memory Usage: 16.1 MB, less than 40.63%
+        어떻게 해야 이거보다 빠르냐 ㄷㄷ
+        
+        """
+        depth = 0
+        if(root):
+            depth += 1
+            depth = depth + max(self.maxDepth(root.left), self.maxDepth(root.right))
+        return depth       
+
+        #1줄
+        #return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right)) if root else 0
+
+    
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        """
+        Input: root = [1,2,2,3,4,4,3]
+        Output: true
+        
+        Input: root = [1,2,2,null,3,null,3]
+        Output: false
+        
+        디스커스
+        Runtime: 32 ms, faster than 83.96%
+        Memory Usage: 14.4 MB, less than 18.13%
+        """
+        def isSym(L,R):
+            if not L and not R: return True
+            if L and R and L.val == R.val: 
+                return isSym(L.left, R.right) and isSym(L.right, R.left)
+            return False
+        return isSym(root, root)
+            
+            
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
