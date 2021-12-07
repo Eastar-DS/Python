@@ -1,5 +1,5 @@
 
-def solution(progresses, speeds):
+def solution1(progresses, speeds):
     answer = []
     
     if(not progresses):
@@ -48,7 +48,30 @@ def solution11(progresses, speeds):
 
 
 
-
+def solution2(priorities, location):
+    from collections import deque
+    answer = 1
+    length = len(priorities)
+    que = deque(priorities)
+    while(que):
+        pr = que.popleft()
+        temp = [prs for prs in que if prs > pr]
+        if(temp):
+            que.append(pr)
+            if(location > 0):
+                location -= 1
+            else:
+                location = length - 1
+        
+        else:
+            if(location > 0):
+                location -= 1
+                answer += 1
+            else:
+                return answer
+            
+            
+    return answer
 
 
 
