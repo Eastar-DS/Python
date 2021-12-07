@@ -67,16 +67,51 @@ def solution2(priorities, location):
             if(location > 0):
                 location -= 1
                 answer += 1
+                length -= 1
             else:
-                return answer
-            
+                return answer            
             
     return answer
 
 
+def solution21(priorities, location):
+    queue =  [(i,p) for i,p in enumerate(priorities)]
+    answer = 0
+    while True:
+        cur = queue.pop(0)
+        if any(cur[1] < q[1] for q in queue):
+            queue.append(cur)
+        else:
+            answer += 1
+            if cur[0] == location:
+                return answer
 
 
-
+def solution3(bridge_length, weight, truck_weights):
+    answer = 1
+    from collections import deque
+    tw = deque(truck_weights)
+    onbridge = []
+    
+    t = tw.popleft()
+    onbridge.append([t,0])
+    w = weight - t
+    while(onbridge):
+        # print('before ',answer, onbridge)
+        for truck in onbridge[::-1]:
+            truck[1] += 1
+            if(truck[1] == bridge_length):
+                w += truck[0]
+                onbridge.pop(0)
+                
+        if(tw and tw[0] <= w):
+            t = tw.popleft()
+            onbridge.append([t,0])
+            w -= t
+            
+        answer += 1
+        # print('after ',answer, onbridge)    
+    return answer
 
 
 
