@@ -73,7 +73,7 @@ def solution2(priorities, location):
             
     return answer
 
-
+#any사용과 (i,p)를 큐에넣어 사용하는생각
 def solution21(priorities, location):
     queue =  [(i,p) for i,p in enumerate(priorities)]
     answer = 0
@@ -116,16 +116,86 @@ def solution3(bridge_length, weight, truck_weights):
 
 
 
+def solution4(prices):
+    answer = []
+    prices.pop()
+    length = len(prices)
+    for index, price in enumerate(prices):
+        time = 0
+        for i in range(index+1, length):
+            if(prices[i] >= price):
+                time += 1            
+            else:
+                answer.append(time+1)
+                break
+            if(i == length - 1):
+                answer.append(time+1)                
+            
+    answer += [1,0]
+    return answer
 
 
+def solution41(prices):
+    answer = [0] * len(prices)
+    for i in range(len(prices)):
+        for j in range(i+1, len(prices)):
+            if prices[i] <= prices[j]:
+                answer[i] += 1
+            else:
+                answer[i] += 1
+                break
+    return answer
 
 
+#문제의도에 좀더 맞고 같은 O(n^2)지만 반절임.
+from collections import deque
+def solution42(prices):
+    answer = []
+    prices = deque(prices)
+    while prices:
+        c = prices.popleft()
+
+        count = 0
+        for i in prices:
+            if c > i:
+                count += 1
+                break
+            count += 1
+
+        answer.append(count)
+
+    return answer
 
 
-
-
-
-
+#O(N)??
+def solution43(p):
+    """
+    stack은 '주식 가격이 처음으로 떨어지는 지점을 아직 못찾은 가격의 index 모음'입니다. 
+    i for문을 돌며 'stack에 남은 것들이 i 번째에 처음으로 가격이 떨어지는가?'를 매번 검사합니다. 
+    이때 queue를 쓰지 않고 stack을 써서 역으로 index를 검사하는 이유는 
+    stack 내 뒤쪽 것이 p[i]보다 가격이 같거나 작다면, 
+    그 앞의 것들은 i index에서 최초로 가격이 떨어질리 없기에 굳이 검사하지 않고 break로 시간을 줄일 수 있기 때문입니다.
+    
+    stack에 price 를 저장해서 하려고 하니까 골치아팠는데, index를 저장하면 되는거였네요!
+    
+    스택에 시간을 저장하면서 prices[stack[-1]이랑 prices[now]를 비교하는겁니다!
+                         
+    else break 덕분에 O(n) 이 되었군요
+    """
+    ans = [0] * len(p)
+    stack = [0]
+    for i in range(1, len(p)):
+        if p[i] < p[stack[-1]]:
+            for j in stack[::-1]:
+                if p[i] < p[j]:
+                    ans[j] = i-j
+                    stack.remove(j)
+                else:
+                    break
+        stack.append(i)
+    for i in range(0, len(stack)-1):
+        ans[stack[i]] = len(p) - stack[i] - 1
+    return ans
 
 
 
