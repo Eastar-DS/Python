@@ -111,3 +111,43 @@ def solution31(clothes):
 
 
 
+
+
+def solution4(genres, plays):
+    answer = []
+    from collections import defaultdict
+    
+    dic,temp = defaultdict(list),defaultdict(int)
+    for i,g,p in zip(range(len(plays)),genres,plays):
+        temp[g] += p
+        dic[g].append([p,i])
+        
+    g_order = dict(sorted(temp.items(), key = lambda x : x[1], reverse = True))
+    
+
+    for g in g_order:
+        if(len(dic[g]) >= 2):
+            temp = sorted(dic[g], key = lambda x : x[0], reverse = True)
+            answer.append(temp[0][1])
+            answer.append(temp[1][1])
+        else:
+            answer.append(dic[g][0][1])
+    
+    return answer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
