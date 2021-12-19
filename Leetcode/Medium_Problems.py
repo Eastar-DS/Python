@@ -1,3 +1,13 @@
+import collections
+import heapq
+import functools
+import itertools
+import re
+import sys
+import math
+import bisect
+from typing import *
+
 # Definition for singly-linked list.
 class ListNode(object):
     def __init__(self, val=0, next=None):
@@ -324,6 +334,117 @@ class Solution(object):
         while((l < length - 1) and (nums[l] == nums[l+1]))의 앞의 조건은 l이 계속해서 커지다가 리스트의 끝까지 가버렸을때를
         대비하기위함.
         '''                    
+
+#394. Decode String
+class Solution394:
+    def decodeString(self, s: str) -> str:
+        """
+        Input: s = "3[a]2[bc]"
+        Output: "aaabcbc"
+        
+        Input: s = "3[a2[c]]"
+        Output: "accaccacc"
+        
+        Input: s = "abc3[cd]xyz"
+        Output: "abccdcdcdxyz"
+        
+        "3[z]2[2[y]pq4[2[jk]e1[f]]]ef" 숫자뒤에 숫자가 또올 수 있을줄 생각 못했다.
+        
+        """
+
+        i, stack, output = 0, [], ""
+        start, end, temp = 0, 0, ""
+        #making stack
+        while(i < len(s)):
+            if(s[i].isalnum()):
+                temp += s[i]
+            elif(s[i] == '['):
+                start += 1
+            elif(s[i] == ']'):
+                end += 1
+            
+            if(start != 0 and start == end):
+                stack.append(temp)
+                start, end, temp = 0, 0, ""
+                
+            i+= 1
+        if(temp):
+            stack.append(temp)
+        #making output
+        while(stack):
+            pop = stack.pop()
+            j, alpha, num = len(pop)-1,"",""
+            while(j>-1):
+                if(pop[j].isalpha()):
+                    alpha = pop[j] + alpha
+                else:
+                    num = pop[j] + num
+                    if (j-1 > -1 and pop[j-1].isdigit()):
+                        j -= 1                        
+                        continue                        
+                    else:
+                        alpha = alpha * int(num)
+                        num = ""
+                j -= 1
+                                            
+            output = alpha + output
+            alpha = ""
+        
+        return output
+
+
+
+    def decodeString1(self, s: str) -> str:
+        """
+        Input: s = "3[a2[c]]"
+        Output: "accaccacc"
+        
+        Input: s = "abc3[cd]xyz"
+        Output: "abccdcdcdxyz"
+        
+        "3[z]2[2[y]pq4[2[jk]e1[f]]]ef"
+        """
+        stack = []; curNum = 0; curString = ''
+        for c in s:
+            #처음에 숫자로시작해도 curString = '' 을 스택에 추가
+            if c == '[':
+                stack.append(curString)
+                stack.append(curNum)
+                curString = ''
+                curNum = 0
+            #이걸 어케알았누? 대단해...
+            elif c == ']':
+                num = stack.pop()
+                prevString = stack.pop()
+                curString = prevString + num*curString
+            #이 아이디어 좋다!
+            elif c.isdigit():
+                curNum = curNum*10 + int(c)
+            else:
+                curString += c
+        return curString
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
