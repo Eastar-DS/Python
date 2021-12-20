@@ -403,6 +403,9 @@ class Solution394:
         Output: "abccdcdcdxyz"
         
         "3[z]2[2[y]pq4[2[jk]e1[f]]]ef"
+        
+        Runtime: 28 ms, faster than 83.89%
+        Memory Usage: 14.3 MB, less than 19.69%
         """
         stack = []; curNum = 0; curString = ''
         for c in s:
