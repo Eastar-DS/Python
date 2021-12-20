@@ -97,3 +97,28 @@ class Solution(object):
 #             l3.append(1)
 #         return l3
         
+#1200. Minimum Absolute Difference
+class Solution1200:
+    def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
