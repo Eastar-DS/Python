@@ -1,3 +1,13 @@
+import collections
+import heapq
+import functools
+import itertools
+import re
+import sys
+import math
+import bisect
+from typing import *
+
 class Solution(object):
     def twoSum(nums, target):
         for i in range(len(nums)-1):
@@ -100,13 +110,54 @@ class Solution(object):
 #1200. Minimum Absolute Difference
 class Solution1200:
     def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:
+        """
+        Minimum of two abs diff
+        Input: arr = [4,2,1,3]
+        Output: [[1,2],[2,3],[3,4]]
         
+        Input: arr = [1,3,6,10,15]
+        Output: [[1,3]]
+        
+        Runtime: 400 ms, faster than 30.97%
+        Memory Usage: 35.5 MB, less than 5.06%
+        """
+        arr.sort()
+        output,min_diff = [], arr[1] - arr[0]
+        for i in range(len(arr)-1):
+            min_diff = min(min_diff, arr[i+1] - arr[i])
+            output.append([arr[i], arr[i+1]])
+        output = [ele for ele in output if (ele[1] - ele[0]) == min_diff]
+        return output
 
 
+    def minimumAbsDifference1(self, arr: List[int]) -> List[List[int]]:
+        """
+        이거보다 빠른사람은 뭐냐...?
+        Runtime: 332 ms, faster than 80.42%
+        Memory Usage: 28.2 MB, less than 60.76%
+        """
+        arr.sort()
+        output,minimum = [[arr[0],arr[1]]],arr[1] - arr[0]
+        for i in range(1,len(arr) - 1):
+            if(arr[i+1] - arr[i] < minimum):
+                minimum = arr[i+1] - arr[i]
+                output = [[arr[i],arr[i+1]]]
+            elif(arr[i+1] - arr[i] == minimum):
+                output.append([arr[i],arr[i+1]])
+        return output
 
 
-
-
+    def minimumAbsDifference2(self, arr: List[int]) -> List[List[int]]:
+        """
+        이게 위에거보다 빠르네;;? if문때문에 그런가? 
+        다시 제출하니까 더느림. 데이터가 많아지면 더느려지지않을까.
+        Runtime: 324 ms, faster than 89.20%
+        Memory Usage: 28.3 MB, less than 24.57%
+        """
+        arr.sort()
+        minimum = min(ele2-ele1 for ele1,ele2 in zip(arr,arr[1:]))
+        return [[ele1,ele2] for ele1,ele2 in zip(arr,arr[1:]) if ele2-ele1 == minimum]
+        
 
 
 
