@@ -430,7 +430,31 @@ class Solution394:
 
 
 
-
+#143. Reorder List
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution143:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        dummy1, head_list  = head, []
+        dummy2, dummy3 = head, ListNode(next = head)
+        while(dummy1.next):
+            dummy1 = dummy1.next
+            head_list.append(dummy1)
+        
+        length = len(head_list)
+        for i in range(length//2):
+            dummy2.next = head_list[length - 1 - i]
+            dummy2 = dummy2.next
+            dummy2.next = head_list[i]
+            dummy2 = dummy2.next
+        if(length % 2 == 1):
+            dummy2.next = head_list[length//2]
+        
 
 
 

@@ -162,11 +162,30 @@ class Solution1200:
 
 
 
+#231. Power of Two
+class Solution231:
+    def isPowerOfTwo(self, n: int) -> bool:
+        """
+        Runtime: 28 ms, faster than 88.11%
+        Memory Usage: 14 MB, less than 97.84%
+        """
+        if(n<0):
+            return False
+        while(n>1):
+            n /= 2
+            if(n%2 > 1.0):
+                return False
+        if(n==1):
+            return True
+        return False
 
 
-
-
-
+    def isPowerOfTwo1(self, n: int) -> bool:
+        """
+        Wow....
+        16 = 10000 -> 15 = 01111 -> 16 & 15 = 00000!
+        """
+        return n > 0 and not (n & n-1)
 
 
 
