@@ -439,9 +439,17 @@ class Solution143:
     def reorderList(self, head: Optional[ListNode]) -> None:
         """
         Do not return anything, modify head in-place instead.
+        Runtime: 84 ms, faster than 94.16%
+        Memory Usage: 23.4 MB, less than 47.53%
+        
+        Input: head = [1,2,3,4]
+        Output: [1,4,2,3]
+        
+        Input: head = [1,2,3,4,5]
+        Output: [1,5,2,4,3]
         """
         dummy1, head_list  = head, []
-        dummy2, dummy3 = head, ListNode(next = head)
+        dummy2= head
         while(dummy1.next):
             dummy1 = dummy1.next
             head_list.append(dummy1)
@@ -454,17 +462,105 @@ class Solution143:
             dummy2 = dummy2.next
         if(length % 2 == 1):
             dummy2.next = head_list[length//2]
+            dummy2 = dummy2.next
+        dummy2.next = None
+            
         
 
+    def reorderList1(self, head):
+        #step 1: find middle
+        if not head: return []
+        slow, fast = head, head
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        #step 2: reverse second half
+        """
+        The idea is to keep three pointers: prev, curr, nextt stand for previous, 
+            current and next and change connections in place. 
+        Do not forget to use slow.next = None, in opposite case you will have list with loop.
+        """
+        prev, curr = None, slow.next
+        while curr:
+            nextt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nextt    
+        slow.next = None
+        
+        #step 3: merge lists
+        
+        
+        head1, head2 = head, prev
+        while head2:
+            nextt = head1.next
+            head1.next = head2
+            head1 = head2
+            head2 = nextt
+
+
+#207. Course Schedule
+class Solution207:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        """
+        Input: numCourses = 2, prerequisites = [[1,0]]
+        Output: true
+        
+        Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
+        Output: false
+        """
+        dic = collections.defaultdict(list)
+        for prerequisite in prerequisites:
+            dic[prerequisite[0]].append(prerequisite[1])
+        
+        
+        
+        def dfs():
+            
 
 
 
 
-
-
-
-
-
+#210. Course Schedule II
+class Solution210:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        """
+        Input: numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+        Output: [0,2,1,3]
+        
+        Input: numCourses = 1, prerequisites = []
+        Output: [0]
+        
+        그래프 이수업을 듣기위해 들어야하는 수업들
+        """
+        output = []
+        dic = collections.defaultdict(list)
+        for prerequisite in prerequisites:
+            dic[prerequisite[0]].append(prerequisite[1])
+        
+        def DFS(key,connect):
+            if(len(dic[key]) == 0):
+                output.append(key)
+                for values in dic.values():
+                    if(key in values):
+                        values.remove(key)
+                return
+            
+            for value in dic[key]:
+                if(value in connect):
+                    return []
+                DFS(value,connect.append(value))
+        
+        for key in dic.keys():
+            connect = [key]
+            DFS(key,connect)
+                    
+        for i in range(numCourses):
+            if(i not in output):
+                output.append(i)
+        
+        return output
 
 
 
