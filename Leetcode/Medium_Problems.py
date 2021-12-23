@@ -513,10 +513,64 @@ class Solution207:
         dic = collections.defaultdict(list)
         for prerequisite in prerequisites:
             dic[prerequisite[0]].append(prerequisite[1])
+        trace,visited = set(),set()        
         
+        def dfs(i):
+            if i in trace:
+                return False
+            if i in visited:
+                return True
+            
+            trace.add(i)
+            for value in dic[i]:
+                if not dfs(value):
+                    return False
+            trace.remove(i)
+            visited.add(i)
+            return True
         
+        #list(dic)으로 쓰는거 주의
+        for key in list(dic):
+            if not dfs(key):
+                return False
         
-        def dfs():
+        return True
+        
+    
+    
+    def canFinish1(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+    	# 선수과목 관련 ref 테이블 먼저 만들어 줌
+        # ref[i]는 i를 듣기 위해 먼저 들어야 하는
+        # 과목들의 집합임!
+        ref = [[] for _ in range(numCourses)]
+        for x, y in prerequisites:
+            ref[x].append(y)
+        
+        visited = [0] * numCourses
+        
+        # 각 노드 돌며 사이클 생성 확인
+        for i in range(numCourses):
+            if not self.dfs(ref, visited, i): #사이클생성
+            	return False
+        return True
+        
+    # 깊이우선탐색 함수
+    def dfs(self, ref, visited, i):
+    	# -1: 방문 중인 노드
+        # 1: 이미 방문한 노드
+        if visited[i] == 1:
+            return True
+        elif visited[i] == -1:
+            return False
+            
+        visited[i] = -1 #방문 중
+        
+        for j in ref[i]:
+            if not self.dfs(ref, visited, j):
+                return False
+        visited[i] = 1
+        return True
+        
             
 
 
