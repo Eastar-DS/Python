@@ -700,6 +700,56 @@ merged = [[1,6]]
         return merged
 
 
+#227. Basic Calculator II
+class Solution227:
+    def calculate(self, s: str) -> int:
+        """
+        Input: s = " 3/2 "
+        Output: 1
+        
+        Input: s = " 3+5 / 2 "
+        Output: 5
+        """
+        num, stack, sign = 0, [], "+"
+        for i in range(len(s)):
+            if s[i].isdigit():
+                num = num * 10 + int(s[i])
+            if s[i] in "+-*/" or i == len(s) - 1:
+                if sign == "+":
+                    stack.append(num)
+                elif sign == "-":
+                    stack.append(-num)
+                elif sign == "*":
+                    stack.append(stack.pop()*num)
+                else:
+                    stack.append(int(stack.pop()/num))
+                num = 0
+                sign = s[i]
+        return sum(stack)
+
+
+#973. K Closest Points to Origin
+class Solution973:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        """
+        Input: points = [[1,3],[-2,2]], k = 1
+        Output: [[-2,2]]
+        
+        Input: points = [[3,3],[5,-1],[-2,4]], k = 2
+        Output: [[3,3],[-2,4]]
+        
+        Runtime: 616 ms, faster than 96.97%
+        Memory Usage: 19.4 MB, less than 99.08%
+        """
+        points.sort(key = lambda x: x[0]**2+x[1]**2)
+        return points[:k]
+
+
+
+
+
+
+
 
 
 
