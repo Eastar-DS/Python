@@ -273,7 +273,7 @@ class Solution(object):
 # for x in ['']:
 #    for y in ['abc']:
 #       [x+y]
-      
+
 
 
     def fourSum(nums, target):
@@ -747,18 +747,63 @@ class Solution973:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#476. Number Complement
+class Solution476:
+    def findComplement(self, num: int) -> int:
+        """
+        The integer 5 is "101" in binary and its complement is "010" which is the integer 2.
+        """
+        two = [2**i for i in range(30,-1,-1)]
+        for i in range(31):
+            if num >= 2**(30-i):
+                two[i] = 0
+                num -= 2**(30-i)
         
+        start = two.index(0)
+        return reduce(lambda x,y: x+y , two[start:], 0)
+
+
+
+    def findComplement1(self, num):
+        mask = 1 << (len(bin(num)) - 2)
+        return (mask - 1) ^ num
+
+
+    def findComplement2(self, num):
+        i = 1
+        while i <= num:
+            i = i << 1
+        return (i - 1) ^ num
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
