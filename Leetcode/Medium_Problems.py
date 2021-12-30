@@ -776,9 +776,32 @@ class Solution476:
         return (i - 1) ^ num
 
 
-
-
-
+#1015. Smallest Integer Divisible by K
+class Solution1015:
+    def smallestRepunitDivByK(self, k: int) -> int:
+        """
+        There is a x such that x%k ==0. 
+        pf) Let N(n) = 11...1(nth of 1). Then N1... %k are in [1 ~ k-1]. 
+            If Nj%k == Ni%k, then Nj - Ni % k == 0 and 
+            it means N(j-i)%k==0. (-><-)
+        """
+        if(k%10 not in [1,3,7,9]): return -1
+        num = 1
+        while(1):
+            if(num%k == 0): 
+                return len(str(num))
+            else:
+                num = num*10 +1
+                
+    
+    def smallestRepunitDivByK1(self, k: int) -> int:    
+        if(k%10 not in [1,3,7,9]): return -1
+        module = 1
+        for Ndigits in range(1, k+1):
+            if module % k == 0:
+                return Ndigits
+            module = (module * 10 + 1) % k
+        
 
 
 

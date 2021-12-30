@@ -863,7 +863,7 @@ Output: 0
         return output
         
         
-
+#116. Populating Next Right Pointers in Each Node
     def connect(self, root: 'Node') -> 'Node':
         class Node:
             def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
@@ -891,6 +891,22 @@ Output: 0
         
         return root
 
+    def connect1(self, root: 'Node') -> 'Node':
+        if root: head = root
+        else: return
+        pre_level, next_level = [head],[]
+        while(pre_level):
+            for i,node in enumerate(pre_level):
+                if(node.left):
+                    next_level += [node.left,node.right]
+                if i < len(pre_level) - 1 :
+                    node.next = pre_level[i+1]
+            pre_level,next_level = next_level,[]
+        return root
+        
+            
+        
+        
 
 # Day 9 Breadth-First Search / Depth-First Search : 
 #     542. 01 Matrix, 994. Rotting Oranges
