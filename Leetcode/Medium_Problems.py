@@ -805,21 +805,83 @@ class Solution1015:
 
 
 
+#1026. Maximum Difference Between Node and Ancestor
+class Solution1026:
+    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
+        """
+        Input: root = [8,3,10,1,6,null,14,null,null,4,7,13]
+        Output: 7
+        
+        Input: root = [1,null,2,null,0,3]
+        Output: 3
+        
+        Runtime: 2585 ms, faster than 5.08%
+        Memory Usage: 167.5 MB, less than 5.08%
+        """
+        
+        def dfs(h,a):
+            if not h:
+                return 0
+            out = dfs(h.left,a[:]+[h.val])
+            out = max(out, dfs(h.right,a[:]+[h.val]))
+            for anc in a:
+                out = max(abs(h.val - anc), out)
+            return out
+        
+        return dfs(root,[])
+        
+    
+    def maxAncestorDiff1(self, root: Optional[TreeNode]) -> int:
+        """
+        Runtime: 217 ms, faster than 7.04%
+        Memory Usage: 167.5 MB, less than 5.08%
+        """
+        #끝에만 가서 해보면 되겠는데?
+        def gotoend(h,a):
+            out = 0
+            if(h.left):
+                out = gotoend(h.left,a[:]+[h.val])
+            if(h.right):
+                out = max(out, gotoend(h.right,a[:]+[h.val]))
+            
+            if not h.left and not h.right:
+                a.append(h.val)
+                out = max(a) - min(a)
+                return out
+            else:
+                return out
+        
+        return gotoend(root,[])
+
+
+    def maxAncestorDiff2(self, root):
+        """
+        Runtime: 32 ms, faster than 94.74%
+        Memory Usage: 19.3 MB, less than 87.08%
+        """
+        if not root: return 0
+        return self.helper(root, root.val, root.val)
+    
+    def helper(self, node, high, low):
+        if not node:
+            return high - low
+        high = max(high, node.val)
+        low = min(low, node.val)
+        return max(self.helper(node.left, high, low), self.helper(node.right,high,low))
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    def maxAncestorDiff3(self, root):
+        if not root: return 0
+        
+        def helper(node, high, low):
+            if not node:
+                return high - low
+            high = max(high, node.val)
+            low = min(low, node.val)
+            return max(helper(node.left, high, low), helper(node.right,high,low))
+    
+        return helper(root, root.val, root.val)
 
 
 
