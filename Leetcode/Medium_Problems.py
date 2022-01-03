@@ -886,6 +886,35 @@ class Solution1026:
 
 
 
+#1010. Pairs of Songs With Total Durations Divisible by 60
+class Solution1010:
+    def numPairsDivisibleBy60(self, time: List[int]) -> int:
+        """
+        Input: time = [30,20,150,100,40]
+        Output: 3
+        
+        Input: time = [60,60,60]
+        Output: 3
+        
+        Runtime: 345 ms, faster than 12.72%
+        Memory Usage: 17.9 MB, less than 48.64%
+        """
+        dic, output = collections.defaultdict(int), 0
+        for num in time:
+            dic[num%60] += 1
+        for i in range(1,30):
+            output += dic[i]*dic[60-i]
+        output += int((dic[0] * (dic[0]-1))/2)
+        output += int((dic[30] * (dic[30]-1))/2)
+        return output
+
+
+
+
+
+
+
+
 
 
 

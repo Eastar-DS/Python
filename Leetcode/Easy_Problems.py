@@ -189,6 +189,44 @@ class Solution231:
 
 
 
+#997. Find the Town Judge
+class Solution997:
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+        """
+        Input: n = 2, trust = [[1,2]]
+        Output: 2
+        
+        Input: n = 3, trust = [[1,3],[2,3]]
+        Output: 3
+        
+        Input: n = 3, trust = [[1,3],[2,3],[3,1]]
+        Output: -1
+        
+        Runtime: 720 ms, faster than 83.59%
+        Memory Usage: 18.8 MB, less than 97.64%
+        """
+        dic,li = collections.defaultdict(int),[1]*n
+        for t in trust:
+            li[t[0]-1],dic[t[1]] = 0, dic[t[1]] + 1
+        for i in range(1,n+1):
+            if(dic[i] == n-1):
+                if(li[i-1] == 1):
+                    return i
+        return -1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
