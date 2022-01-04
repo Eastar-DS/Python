@@ -214,8 +214,25 @@ class Solution997:
                     return i
         return -1
 
-
-
+#1009. Complement of Base 10 Integer
+class Solution1009:
+    def bitwiseComplement(self, n: int) -> int:
+        """
+        Input: n = 5
+        Output: 2
+        Explanation: 5 is "101" in binary, with complement "010" in binary, which is 2 in base-10.
+        
+        input = 0
+        output = 1
+        
+        Runtime: 28 ms, faster than 80.61%
+        Memory Usage: 14.1 MB, less than 89.54%
+        """
+        if(n==0):
+            return 1
+        for i in range(1,31):
+            if(2**i>n):
+                return ((2**i)-1)^n
 
 
 
