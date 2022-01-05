@@ -909,10 +909,35 @@ class Solution1010:
         return output
 
 
-
-
-
-
+#131. Palindrome Partitioning
+class Solution131:
+    """
+    Input: s = "aab"
+    Output: [["a","a","b"],["aa","b"]]
+    
+    
+    aab, [], []
+    a is pal -> dfs(ab, [a], []). a is pal -> dfs(b,[a,a],[]). bispal -> dfs(,[a,a,b],[]). res.aapend([a,a,b])
+    aa is pal -> dfs(b, [aa], []). bis pal -> dfs(, [aa, b], [])
+    
+    Runtime: 1105 ms, faster than 7.02%
+    Memory Usage: 26.4 MB, less than 98.88%
+    """
+    def partition(self, s: str) -> List[List[str]]:
+        def ispal(s):
+            return(s == s[::-1])
+    
+        def dfs(s, path, res):
+            if not s:
+                res.append(path)
+                return
+            for i in range(1, len(s)+1):
+                if ispal(s[:i]):
+                    dfs(s[i:], path+[s[:i]], res)
+        
+        res = []
+        dfs(s,[],res)
+        return res
 
 
 
