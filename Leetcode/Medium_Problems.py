@@ -940,6 +940,67 @@ class Solution131:
         return res
 
 
+#1094. Car Pooling
+class Solution1094:
+    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+        """
+        Input: trips = [[2,1,5],[3,3,7]], capacity = 4
+        Output: false
+        
+        Input: trips = [[2,1,5],[3,3,7]], capacity = 5
+        Output: true
+        
+        Runtime: 540 ms, faster than 5.19%
+        Memory Usage: 14.7 MB, less than 77.09%
+        """
+        cap = [capacity]*max(trips, key=lambda x: x[2])[2]
+        for trip in trips:
+            for num in range(trip[1],trip[2]):
+                cap[num] -= trip[0]
+                if(cap[num]<0): return False
+        
+        return True
+
+
+
+class Solution382:
+    """
+    Runtime: 94 ms, faster than 43.46%
+    Memory Usage: 17.5 MB, less than 8.66%
+    """
+    
+    def __init__(self, head: Optional[ListNode]):
+        dummy,length = head,[],0
+        while(dummy):
+            length += 1
+            dummy = dummy.next
+        self.head = head
+        self.length = length
+    
+    def getRandom(self) -> int:
+        num,dum = random.randint(0, self.length - 1),self.head
+        for i in range(num):
+            dum = dum.next
+        return dum.val
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
