@@ -68,8 +68,30 @@ class Solution902:
             i += 1
         return res + (i == n)
     
-    
-    
+
+#1463. Cherry Pickup II
+class Solution1463:
+    def cherryPickup(self, grid: List[List[int]]) -> int:
+        """
+        Runtime: 1262 ms, faster than 63.85%
+        Memory Usage: 42.1 MB, less than 16.48%
+        
+        """
+        m, n = len(grid), len(grid[0])
+        
+        #캐싱. dp에서 결과값을따로저장할필요가 없어짐.
+        @lru_cache(None)
+        def dfs(r, c1, c2):
+            if r == m: return 0
+            cherries = grid[r][c1] if c1 == c2 else grid[r][c1] + grid[r][c2]
+            ans = 0
+            for nc1 in range(c1 - 1, c1 + 2):
+                for nc2 in range(c2 - 1, c2 + 2):
+                    if 0 <= nc1 < n and 0 <= nc2 < n:
+                        ans = max(ans, dfs(r + 1, nc1, nc2))
+            return ans + cherries
+
+        return dfs(0, 0, n - 1)
     
     
     
