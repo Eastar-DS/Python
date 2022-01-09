@@ -984,12 +984,45 @@ class Solution382:
         return dum.val
 
 
+#1041. Robot Bounded In Circle
+class Solution1041:
+    def isRobotBounded(self, instructions: str) -> bool:
+        """
+        Runtime: 38 ms, faster than 25.22%
+        Memory Usage: 14.4 MB, less than 15.52%
+        """
+        if "G" not in instructions:
+            return True
+        direction,position = 0,[0,0]
+        
+        def changeDirection(string,direction):
+            if string == "L":
+                direction = direction - 1 if direction > 0 else 3
+            else :
+                direction = direction + 1 if direction < 3 else 0
+            
+            return direction
+        
+        def changePosition(instruction, position, direction):
+            if direction == 0: position[1] += 1
+            elif direction == 1: position[0] += 1
+            elif direction == 2: position[1] -= 1
+            else: position[0] -= 1
+            
+            return position
+        
+        for instruction in instructions:
+            if instruction == "G":
+                position = changePosition(instruction,position,direction)
+                if position == [0,0]: return True
+            else:
+                direction = changeDirection(instruction,direction)
+        return False
+            
+        
+        
 
-
-
-
-
-
+        
 
 
 
