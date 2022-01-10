@@ -236,6 +236,57 @@ class Solution1009:
 
 
 
+#67. Add Binary
+class Solution67:
+    def addBinary(self, a: str, b: str) -> str:
+        """
+        Runtime: 45 ms, faster than 23.05%
+        Memory Usage: 14.2 MB, less than 55.41%
+        """
+        output, s, c = "",0,0
+        #padding
+        if(len(a)>len(b)):
+            b = '0'*(len(a)-len(b)) + b
+        else:
+            a = '0'*(len(b)-len(a)) + a
+            
+        for num1,num2 in zip(a[::-1],b[::-1]):
+            s,c = (int(num1)+int(num2)+c)%2, (int(num1)+int(num2)+c)//2
+            output = f'{s}' + output
+        
+        if(c==1):
+            output = '1'+output
+        
+        return output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
