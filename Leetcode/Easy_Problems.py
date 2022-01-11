@@ -260,12 +260,33 @@ class Solution67:
         return output
 
 
+#1022. Sum of Root To Leaf Binary Numbers
+class Solution1022:
+    output = 0
+    def sumRootToLeaf(self, root: Optional[TreeNode]) -> int:
+        """
+        Runtime: 50 ms, faster than 26.50%
+        Memory Usage: 14.7 MB, less than 6.16%
+        """
+        def dfs(node, value):
+            if not node:
+                return
+            if (not node.left and not node.right):
+                value += node.val
+                self.output += value
+            else:
+                value = 2*(value+node.val)
+                dfs(node.left, value)
+                dfs(node.right, value)
+        dfs(root, 0)
+        return self.output
 
 
-
-
-
-
+    def sumRootToLeaf2(self, root, val=0):
+        if not root: return 0
+        val = val * 2 + root.val
+        if root.left == root.right: return val
+        return self.sumRootToLeaf(root.left, val) + self.sumRootToLeaf(root.right, val)
 
 
 
