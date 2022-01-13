@@ -1028,7 +1028,23 @@ class Solution701:
         else: root.left = self.insertIntoBST(root.left, val);
         return(root)
         
-
+#452. Minimum Number of Arrows to Burst Balloons
+class Solution452:
+    """
+    Runtime: 1765 ms, faster than 27.60%
+    Memory Usage: 59.2 MB, less than 35.36%
+    
+    Input: points = [[10,16],[2,8],[1,6],[7,12]]
+    Output: 2
+    """
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        points.sort(key=lambda x: x[1])
+        count,end = 1,points[0][1]
+        for point in points:
+            if point[0] > end:
+                count += 1
+                end = point[1]
+        return count
 
 
 
