@@ -1047,13 +1047,34 @@ class Solution452:
         return count
 
 
-
-
-
-
-
-
-
+#8. String to Integer (atoi)
+class Solution8:
+    def myAtoi(self, s: str) -> int:
+        """
+        왜 비추가 추천의 3배인지 알 수 있는 문제 ㅡ
+        Runtime: 45 ms, faster than 29.95%
+        Memory Usage: 14.1 MB, less than 81.95%
+        """
+        digits=""
+        s = s.strip()
+        if(s=="" or s[0] not in "0123456789-+"): return 0
+        elif s[0]=='-': 
+            digits,s='-',s[1:]
+        elif s[0]=='+' :
+            s=s[1:]
+        for string in s:
+            if(string.isdigit()):
+                digits += string
+            else: break
+        
+        if (digits=='-' or digits=='') : return 0
+        digits = int(digits)
+        if digits < -2**31 :
+            return -2**31                
+        elif digits > 2**31 -1: 
+            return 2**31 -1
+        else:
+            return digits
 
 
 
