@@ -94,26 +94,73 @@ class Solution1463:
         return dfs(0, 0, n - 1)
     
     
+#1345. Jump Game IV
+class Solution1345:
+    def minJumps(self, arr: List[int]) -> int:
+        """
+        Time Limit Exceeded
+        """
+        length,graph = len(arr)-1, {}
+        for i,ele in enumerate(arr):
+            if(ele in graph):
+                graph[ele].append(i)
+            else:
+                graph[ele] = [i]
+        def func(index, table, output, visited):
+            if(index == length):
+                return output
+            #nextstep
+            con = length
+            for i in graph[arr[index]]:
+                if(arr[index] not in visited and table[i] == 0):
+                    new_table = table[:]
+                    new_table[i] = 1
+                    con =  min(func(i,new_table,output+1,visited + [arr[index]]), con)
+
+            if(index<length):
+                if(table[index+1]==0):
+                    new_table = table[:]
+                    new_table[index+1] = 1
+                    con = min(func(index+1,new_table,output+1, visited), con)
+            if(index>0):
+                if(table[index-1]==0):
+                    new_table = table[:]
+                    new_table[index-1] = 1
+                    con = min(func(index-1,new_table,output+1, visited), con)
+
+            return con
+        return func(0,[1]+[0]*(len(arr)-1),0,[])
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    def minJumps1(self, arr: List[int]) -> int:
+        """
+        Runtime: 781 ms, faster than 33.74%
+        Memory Usage: 26.7 MB, less than 97.38%
+        """
+        from collections import defaultdict, deque
+        length,graph = len(arr)-1, defaultdict(list)
+        for i,ele in enumerate(arr):
+            graph[ele].append(i)
+        
+        queue = deque([[0,0]])
+        visit= [1]+[0]*length
+        
+        while(queue):
+            output, index = queue.popleft()
+            if(index == length): return output
+            
+            if(arr[index] in graph.keys()):
+                for i in graph[arr[index]]:
+                    if(visit[i] == 0):
+                        queue.append([output+1,i])
+                        visit[i] = 1                    
+                del graph[arr[index]]
+                #visit_group.append(arr[index])        
+
+            for i in [index-1, index+1]:
+                if(i>0 and i<length+1 and visit[i]== 0):
+                    queue.append([output+1,i])
+                    visit[i] = 1
+     
     
     
     
