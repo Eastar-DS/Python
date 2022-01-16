@@ -1078,6 +1078,66 @@ class Solution8:
 
 
 
+#849. Maximize Distance to Closest Person
+class Solution849:
+    def maxDistToClosest(self, seats: List[int]) -> int:
+        """
+        Runtime: 128 ms, faster than 89.20%
+        Memory Usage: 14.5 MB, less than 92.48%
+        """
+        output,length = 0,0        
+        for seat in seats:
+            if seat==0 : 
+                length += 1
+            else:
+                output = max(output,length)
+                length = 0
+        output = (output-1)//2 + 1
+        length = 0
+        #first and last
+        if(seats[0] == 0):
+            for seat in seats:
+                if seat==0 : 
+                    length += 1
+                else:
+                    output = max(output,length)
+                    length = 0
+                    break
+        if(seats[-1] == 0):
+            for seat in seats[::-1]:
+                if seat==0 : 
+                    length += 1
+                else:
+                    output = max(output,length)
+                    length = 0
+                    break
+        return output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
