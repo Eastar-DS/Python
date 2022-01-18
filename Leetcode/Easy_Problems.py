@@ -289,9 +289,28 @@ class Solution1022:
         return self.sumRootToLeaf(root.left, val) + self.sumRootToLeaf(root.right, val)
 
 
-
-
-
+#290. Word Pattern
+class Solution290:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        """
+        Runtime: 24 ms, faster than 96.06%
+        Memory Usage: 14.2 MB, less than 55.31%
+        """
+        dic = collections.defaultdict(str)
+        s = s.split()
+        if(len(pattern) != len(s)):
+            return False
+        for i, pat in enumerate(pattern):
+            if (pat in dic.keys()):
+                if dic[pat]==s[i]:
+                    continue
+                else:
+                    return False
+            else:
+                dic[pat] = s[i]
+        if len(dic) != len(set(s)):
+            return False
+        return True
 
 
 
