@@ -1115,8 +1115,29 @@ class Solution849:
 
 
 
-
-
+#142. Linked List Cycle II
+class Solution142:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        Runtime: 67 ms, faster than 35.07%
+        Memory Usage: 17.3 MB, less than 56.58%
+        """
+        if(not head):
+            return
+        slow,fast = head,head
+        while(fast.next and fast.next.next):
+            slow = slow.next
+            fast = fast.next.next
+            if(slow == fast):
+                if(slow == head):
+                    return slow
+                slow = head
+                while(fast.next and fast.next.next):
+                    slow = slow.next
+                    fast = fast.next
+                    if(slow == fast):
+                        return slow
+        return 
 
 
 

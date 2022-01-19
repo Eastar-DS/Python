@@ -312,14 +312,33 @@ class Solution290:
             return False
         return True
 
-
-
-
-
-
-
-
-
+#605. Can Place Flowers
+class Solution605:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        """
+        Runtime: 175 ms, faster than 49.64%
+        Memory Usage: 14.6 MB, less than 61.08%
+        """
+        now = flowerbed[0]
+        if(len(flowerbed) == 1):
+            nums = int(not now)
+        elif(len(flowerbed) == 2):
+            if(flowerbed[0] == 0 and flowerbed[1] == 0):
+                nums = 1
+            else:
+                nums = 0
+        else:
+            flowerbed += [0]
+            before, now , future, nums = 0, flowerbed[0], flowerbed[1], 0
+            for flower in flowerbed[2:] :
+                if(before == 0 and now == 0 and future == 0):
+                    before, now, future = 1, future, flower
+                    nums += 1
+                else:
+                    before, now,future = now, future, flower
+            if(before == 0 and now == 0 and future == 0): nums += 1
+        if nums >= n: return True
+        return False
 
 
 
