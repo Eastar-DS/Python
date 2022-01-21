@@ -1140,6 +1140,103 @@ class Solution142:
         return 
 
 
+#875. Koko Eating Bananas
+class Solution875:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        """
+        Runtime: 871 ms, faster than 13.29%
+        Memory Usage: 15.6 MB, less than 18.51%
+        """
+        import math
+        l,r = 1,max(piles)
+        while(l<r):
+            m = (l+r)//2
+            hour = 0
+            for pile in piles:
+                hour += math.ceil(pile/m)
+            if(hour <= h):
+                r=m
+            else:
+                l=m+1
+        return l
+
+
+#134. Gas Station
+class Solution134:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        """
+        Input: gas = [1,2,3,4,5], cost = [3,4,5,1,2]
+        Output: 3
+        
+        Runtime: 3498 ms, faster than 5.04%
+        Memory Usage: 19 MB, less than 16.63%
+        """
+        #가스량이 적으면 불가능, 같으면 더해가면서확인, 더크면 유니크솔루션이므로 무조건 맥스값에서 시작해야함.
+        #나에게 취한다
+        if(sum(gas) < sum(cost)): 
+            return -1
+        elif(sum(gas) == sum(cost)):
+            length = len(gas)
+            for index in range(length):
+                energy = 0
+                for i in range(index,length+index):
+                    if(i>=length):
+                        i %= length
+                    if(energy>= 0):
+                        energy = energy + gas[i] - cost[i]
+                    else:
+                        break
+                if energy < 0:
+                    continue
+                else:
+                    break
+            return index
+        else:
+            return gas.index(max(gas))
+
+    def canCompleteCircuit1(self, gas: List[int], cost: List[int]) -> int:
+        """
+        [5,1,2,3,4]
+        [4,4,1,5,1]
+        Runtime: 666 ms, faster than 30.01%
+        Memory Usage: 18.7 MB, less than 94.41%
+        """
+        sum_gas, sum_cost = sum(gas), sum(cost)
+        if(sum_gas < sum_cost): 
+            return -1
+        elif(sum_gas == sum_cost):
+            #순간 연료합이 음수인 다음부터 시작하는것으로 초기화.
+            i,energy = 0,0
+            for index in range(len(gas)):
+                energy = energy + gas[index] - cost[index]                
+                if energy < 0:
+                    energy = 0
+                    i = index + 1
+                    continue
+            return i
+        else:
+            return gas.index(max(gas))
+
+    def canCompleteCircuit2(self, gas: List[int], cost: List[int]) -> int:
+        #유니크 솔루션이기때문에...
+        trip_tank, curr_tank, start, n = 0, 0, 0, len(gas)
+        for i in range(n):
+            trip_tank += gas[i] - cost[i]
+            curr_tank += gas[i] - cost[i]
+            if curr_tank < 0:
+                start = i + 1
+                curr_tank = 0 
+        return start if trip_tank >= 0 else -1
+
+
+
+
+
+
+
+
+
+
 
 
 
