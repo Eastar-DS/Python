@@ -161,6 +161,32 @@ class Solution1345:
                     queue.append([output+1,i])
                     visit[i] = 1
      
-    
-    
-    
+
+#1510
+class Solution:
+    def winnerSquareGame(self, n: int) -> bool:
+        """
+        Runtime: 2840 ms, faster than 29.94%
+        Memory Usage: 14.8 MB, less than 76.05%
+        """
+        import math
+        dp = [0]*(n+1)
+        for i in range(1,n+1):
+            if(math.sqrt(i)==int(math.sqrt(i))):
+                dp[i] = 1
+            else:
+                for j in range(1,math.ceil(math.sqrt(i))):
+                    if(dp[i-j**2] == 0):
+                        dp[i] = 1
+                        break
+        return bool(dp[-1])
+
+
+
+
+
+
+
+
+
+
