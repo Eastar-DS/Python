@@ -1229,10 +1229,26 @@ class Solution134:
         return start if trip_tank >= 0 else -1
 
 
+#1291. Sequential Digits
+class Solution1291:
+    def sequentialDigits(self, low: int, high: int) -> List[int]:
+        """
+        Runtime: 55 ms, faster than 8.73%
+        Memory Usage: 14.4 MB, less than 22.22%
+        """
+        digits, nums = '123456789',[]
+        for window_length in range(1,10):
+            for i in range(0,10-window_length):
+                nums.append(int(digits[i:i+window_length]))                
+        return [num for num in nums if num >= low and num <= high]
 
-
-
-
+    def sequentialDigits1(self, low: int, high: int) -> List[int]:
+        """
+        Runtime: 23 ms, faster than 96.83%
+        Memory Usage: 14.1 MB, less than 80.16%
+        """
+        nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 23, 34, 45, 56, 67, 78, 89, 123, 234, 345, 456, 567, 678, 789, 1234, 2345, 3456, 4567, 5678, 6789, 12345, 23456, 34567, 45678, 56789, 123456, 234567, 345678, 456789, 1234567, 2345678, 3456789, 12345678, 23456789, 123456789]
+        return [num for num in nums if num >= low and num <= high]
 
 
 

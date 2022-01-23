@@ -162,8 +162,8 @@ class Solution1345:
                     visit[i] = 1
      
 
-#1510
-class Solution:
+#1510. Stone Game IV
+class Solution1510:
     def winnerSquareGame(self, n: int) -> bool:
         """
         Runtime: 2840 ms, faster than 29.94%
@@ -180,9 +180,17 @@ class Solution:
                         dp[i] = 1
                         break
         return bool(dp[-1])
-
-
-
+    
+#속도 빠른풀이
+from functools import cache
+@cache
+def win(n):
+    return any(not win(n - m *m) for m in range(int(n**0.5), 0, -1))
+            
+class Solution1510_1:
+    def winnerSquareGame(self, n: int) -> bool:
+        return win(n)
+    
 
 
 
