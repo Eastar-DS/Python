@@ -341,8 +341,17 @@ class Solution605:
         return False
 
 
-
-
+#520. Detect Capital
+class Solution520:
+    def detectCapitalUse(self, word: str) -> bool:
+        if(word.isupper()):
+            return True
+        for s in word[1:]:
+            if(s.isupper()):
+                return False
+        return True
+        
+        #return word.isupper() or word.islower() or word.istitle()
 
 
 
