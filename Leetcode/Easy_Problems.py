@@ -353,8 +353,26 @@ class Solution520:
         
         #return word.isupper() or word.islower() or word.istitle()
 
-
-
+#941. Valid Mountain Array
+class Solution941:
+    def validMountainArray(self, arr: List[int]) -> bool:
+        """
+        Runtime: 281 ms, faster than 30.54%
+        Memory Usage: 15.5 MB, less than 61.89%
+        """
+        length = len(arr)
+        if(length < 3):
+            return False
+        max_index = arr.index(max(arr))
+        if(max_index == 0 or max_index == length-1):
+            return False        
+        for i in range(max_index):
+            if(arr[i] >= arr[i+1]):
+                return False    
+        for i in range(max_index,length-1):
+            if(arr[i] <= arr[i+1]):
+                return False
+        return True
 
 
 

@@ -1251,8 +1251,27 @@ class Solution1291:
         return [num for num in nums if num >= low and num <= high]
 
 
-
-
+#1305. All Elements in Two Binary Search Trees
+class Solution1305:
+    def getAllElements(self, root1: TreeNode, root2: TreeNode) -> List[int]:
+        """
+        Runtime: 418 ms, faster than 52.35%
+        Memory Usage: 22.5 MB, less than 45.36%
+        """
+        output = []
+        def dfs(node):
+            if not node : 
+                return
+            else :
+                output.append(node.val)
+                if(node.left):
+                    dfs(node.left)
+                if(node.right):
+                    dfs(node.right)
+        dfs(root1)
+        dfs(root2)
+        return sorted(output)
+        
 
 
 
