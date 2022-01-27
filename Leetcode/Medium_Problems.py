@@ -1273,12 +1273,28 @@ class Solution1305:
         return sorted(output)
         
 
+#421. Maximum XOR of Two Numbers in an Array
+class Solution421:
+    def findMaximumXOR(self, nums: List[int]) -> int:        
+        output = 0
+        nums = list(set(nums))
+        for i in range(len(nums)-1):
+            for j in range(i+1, len(nums)):
+                output = max(nums[i]^nums[j],output)
+        return output
 
 
 
-
-
-
+    def findMaximumXOR1(self, nums: List[int]) -> int:
+        """
+        풀이봐도 모르겠다. 다음에 다시풀자. 맨왼쪽비트부터 마스킹해서 어쩌구저쩌구;;
+        """
+        answer = 0
+        for i in range(32)[::-1]:
+            answer <<= 1
+            prefixes = {num >> i for num in nums}
+            answer += any(answer^1 ^ p in prefixes for p in prefixes)
+        return answer
 
 
 
