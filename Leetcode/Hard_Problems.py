@@ -8,6 +8,8 @@ import math
 import bisect
 from typing import *
 
+#84
+
 #902. Numbers At Most N Given Digit Set
 class Solution902:    
     def atMostNGivenDigitSet(self, digits: List[str], n: int) -> int:
@@ -191,6 +193,51 @@ class Solution1510_1:
     def winnerSquareGame(self, n: int) -> bool:
         return win(n)
     
+
+#84. Largest Rectangle in Histogram
+class Solution84:
+    def largestRectangleArea(self, height: List[int]) -> int:
+        height.append(0)
+        stack = [-1]    
+        ans = 0
+        for i in range(len(height)):
+            while height[i] < height[stack[-1]]:
+                h = height[stack.pop()]
+                w = i - stack[-1] - 1
+                ans = max(ans, h * w)
+            stack.append(i)
+        height.pop()
+        return ans
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
