@@ -374,6 +374,44 @@ class Solution941:
                 return False
         return True
 
+#1672. Richest Customer Wealth
+class Solution1672:
+    def maximumWealth(self, accounts: List[List[int]]) -> int:
+        output = -1
+        for money in accounts:
+            output = max(output, sum(money))
+        return output
+    
+        # return max(map(sum, accounts))
+        
+        # output = -1
+        # for account in accounts:
+        #     m = sum(account)
+        #     if(output < m):
+        #         output = m
+        # return output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
