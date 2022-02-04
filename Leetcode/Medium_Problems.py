@@ -1300,7 +1300,23 @@ class Solution421:
 
 
 
-
+#525. Contiguous Array
+class Solution525:
+    def findMaxLength(self, nums: List[int]) -> int:
+        import collections
+        g = collections.defaultdict(list)
+        g[0].append(-1)
+        output = 0
+        for i,num in enumerate(nums):
+            if(num) :
+                output += 1
+            else:
+                output -= 1
+            g[output].append(i)
+        output = 0
+        for value in g.values():
+            output = max(output, max(value)-min(value))
+        return output
 
 
 
