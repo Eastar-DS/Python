@@ -210,9 +210,22 @@ class Solution84:
         return ans
 
 
-
-
-
+#23. Merge k Sorted Lists
+class Solution23:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        output, tmp = ListNode(), []
+        dummy = output
+        for node in lists:
+            while(node):
+                tmp.append(node.val)
+                node = node.next
+        tmp.sort()
+        for val in tmp:
+            dummy.next = ListNode(val)
+            dummy = dummy.next
+        return output.next
+        
+        
 
 
 
