@@ -1319,8 +1319,20 @@ class Solution525:
         return output
 
 
-
-
+#80. Remove Duplicates from Sorted Array II
+class Solution80:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        n,f,k = None,0,-1
+        for num in nums:
+            if(n==num):
+                f += 1
+            else:
+                n = num
+                f = 1
+            if(f<3):
+                k += 1
+            nums[k] = n
+        return k+1
 
 
 
