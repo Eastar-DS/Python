@@ -392,7 +392,12 @@ class Solution1672:
         # return output
 
 
-
+#389. Find the Difference
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        for s1,s2 in zip(sorted(list(s))+[0],sorted(list(t))):
+            if(s1 != s2):
+                return s2
 
 
 
