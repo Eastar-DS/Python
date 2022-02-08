@@ -393,14 +393,19 @@ class Solution1672:
 
 
 #389. Find the Difference
-class Solution:
+class Solution389:
     def findTheDifference(self, s: str, t: str) -> str:
         for s1,s2 in zip(sorted(list(s))+[0],sorted(list(t))):
             if(s1 != s2):
                 return s2
 
 
-
+#258. Add Digits
+class Solution258:
+    def addDigits(self, num: int) -> int:        
+        while(num >= 10):
+            num = sum([int(s) for s in str(num)])
+        return num
 
 
 
