@@ -1335,6 +1335,76 @@ class Solution80:
         return k+1
 
 
+#532. K-diff Pairs in an Array
+class Solution532:
+    def findPairs(self, nums: List[int], k: int) -> int:
+        if(k==0):
+            nums.sort()
+            length = len(nums)        
+            if(length < 2):
+                return 0
+            i,num,output = 1,nums[0],0
+            while(i < length):
+                if(nums[i] != num):
+                    num = nums[i]
+                    i += 1
+                else:
+                    output += 1
+                    while(num == nums[i] and i < length - 1):
+                        i+=1
+                    num = nums[i]
+                    i += 1                    
+        else:
+            nums = sorted(list(set(nums)))
+            length = len(nums)        
+            if(length < 2):
+                return 0
+            i,j,output = 0,1,0
+            while(j < length):
+                while(i<j):
+                    if(nums[j] - nums[i] < k):
+                        break
+                    elif(nums[j] - nums[i] == k):
+                        i+=1
+                        output += 1
+                    else:
+                        i+=1
+                j += 1
+        return output
+
+
+#디스커스 짱!!!
+    def findPairs1(self, nums, k):
+        res = 0
+        c = collections.Counter(nums)
+        for i in c:
+            if k > 0 and i + k in c or k == 0 and c[i] > 1:
+                res += 1
+        return res
+
+    def findPairs2(self, nums, k):
+        c = collections.Counter(nums)
+        return  sum(k > 0 and i + k in c or k == 0 and c[i] > 1 for i in c)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
