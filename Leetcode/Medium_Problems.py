@@ -1387,11 +1387,36 @@ class Solution532:
         return  sum(k > 0 and i + k in c or k == 0 and c[i] > 1 for i in c)
 
 
-
-
-
-
-
+#560. Subarray Sum Equals K
+class Solution560:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        # window,length,output = 1,len(nums),0
+        # while(window <= length):
+        #     for i in range(length+1-window):
+        #         if(sum(nums[i:i+window]) == k):
+        #             output += 1
+        #     window += 1
+        # return output
+        
+        #출발점에서부터 현재지점 직전까지 합을 테이블에 저장해두자.
+        # length,output = len(nums),0
+        # table = [0]*1
+        # for i in range(length):
+        #     now = nums[i]
+        #     output += table.count(k-now)
+        #     table = [n+now for n in table] + [0]
+        # return output
+        
+        #디스커스 runningsum 개념 참고
+        from collections import defaultdict 
+        summ,output = 0,0
+        dic = defaultdict(int)
+        dic[0] = 1
+        for i in range(len(nums)):
+            summ += nums[i]
+            output += dic[summ-k]
+            dic[summ] += 1
+        return output
 
 
 
