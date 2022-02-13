@@ -1419,17 +1419,13 @@ class Solution560:
         return output
 
 
-
-
-
-
-
-
-
-
-
-
-
+#78. Subsets
+class Solution78:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        output = []
+        for i in range(len(nums)+1):
+            output += list(itertools.combinations(nums,i))
+        return output
 
 
 
