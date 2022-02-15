@@ -408,10 +408,10 @@ class Solution258:
         return num
 
 
-
-
-
-
+#136. Single Number
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        return [out[0] for out in list(collections.Counter(nums).items()) if out[1] == 1][0]
 
 
 
