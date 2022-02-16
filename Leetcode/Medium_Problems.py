@@ -1428,6 +1428,45 @@ class Solution78:
         return output
 
 
+#24. Swap Nodes in Pairs
+class Solution24:
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if (not head or not head.next):
+            return head
+        node,next_node = head,head.next
+        output = next_node
+        while(next_node):
+            tmp = next_node.next
+            if(tmp):
+                if(tmp.next):
+                    node.next,next_node.next = next_node.next.next, node
+                else:
+                    node.next,next_node.next = tmp, node
+                node,next_node = tmp,tmp.next
+            else:
+                node.next,next_node.next = tmp, node
+                node,next_node = None,None
+        return output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
