@@ -1449,9 +1449,18 @@ class Solution24:
         return output
 
 
-
-
-
+#39. Combination Sum
+class Solution39:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        queue, output = collections.deque([[num] for num in candidates]), []
+        while(queue):
+            que = queue.popleft()
+            if(sum(que) == target):
+                output.append(que)
+            for n in candidates[candidates.index(que[-1]):]:
+                if(sum(que) + n <= target):
+                    queue.append(que+[n])
+        return output
 
 
 
