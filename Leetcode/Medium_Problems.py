@@ -1462,12 +1462,33 @@ class Solution39:
                     queue.append(que+[n])
         return output
 
+    def combinationSumDFS(self, candidates: List[int], target: int) -> List[List[int]]:
+        output = []
+        def dfs(l,t):
+            if t == 0:
+                return output.append(l)
+            elif t > 0:
+                for n in candidates[candidates.index(l[-1]):]:
+                    dfs(l+[n], t-n)
+        for num in candidates:
+            dfs([num],target-num)
+        return output
 
 
-
-
-
-
+#402. Remove K Digits
+class Solution402:
+    def removeKdigits(self, num: str, k: int) -> str:
+        if len(num)==k :
+            return "0"
+        stack = []
+        for digit in num :
+            while k>0 and stack and stack[-1] > digit:
+                k -= 1
+                stack.pop()
+            stack.append(digit)
+        if k>0:
+            stack = stack[:-k]
+        return str(int(''.join(stack)))
 
 
 
