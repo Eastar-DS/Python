@@ -1491,6 +1491,37 @@ class Solution402:
         return str(int(''.join(stack)))
 
 
+#1288. Remove Covered Intervals
+class Solution1288:
+    def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key = lambda x : (x[0] - x[1]))
+        i , length = 0,len(intervals)
+        while(i < length):
+            l,r = intervals[i][0],intervals[i][1]
+            intervals = [[l,r]] + [interval for interval in intervals if interval[0]<l or interval[1]>r]
+            i+=1
+            length = len(intervals)
+        return len(intervals)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
