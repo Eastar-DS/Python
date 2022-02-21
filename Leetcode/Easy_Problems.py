@@ -415,7 +415,10 @@ class Solution:
 
 
 
-
+#169. Majority Element
+class Solution169:
+    def majorityElement(self, nums: List[int]) -> int:
+        return collections.Counter(nums).most_common()[0][0]
 
 
 
