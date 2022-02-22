@@ -421,7 +421,10 @@ class Solution169:
         return collections.Counter(nums).most_common()[0][0]
 
 
-
+#171. Excel Sheet Column Number
+class Solution:
+    def titleToNumber(self, columnTitle: str) -> int:
+        return sum([26**i * (ord(alpha)-64) for i,alpha in enumerate(columnTitle[::-1])])
 
 
 
