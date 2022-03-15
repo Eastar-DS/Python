@@ -69,6 +69,9 @@ for _ in range(N):
 #해주는게 더빠르다.
 A.sort();B.sort();C.sort(reverse = True);D.sort(reverse = True);
 #왜 append를 2**28이 넘는 수로 하나씩 더해줘야해?
+'''
+else부분의 while에서 무조건 다른원소를 하나 넣어주기위해. 없으면 index넘어간다.
+'''
 ab = sorted([a+b for a in A for b in B])
 ab.append(2**28+1)
 cd = sorted([c+d for c in C for d in D],reverse = True)
