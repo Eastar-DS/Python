@@ -1,3 +1,45 @@
+#0 내풀이로 1등함!!!!!!!!!! 남들 5000ms넘어갈때 132ms ㅅㅅㅅㅅㅅ
+import sys,collections
+# input = sys.stdin.readline
+
+N,M,K = map(int,input().split())
+graph = [list(input()) for _ in range(N)]
+word = input().rstrip()
+length = len(word)
+visit = [[[0]*length for _ in range(M)] for _ in range(N)]
+
+queue = collections.deque([])
+output = 0
+for i in range(N):
+    for j in range(M):
+        if graph[i][j] == word[-1]:
+            queue.append([i,j,length-1])
+            visit[i][j][length-1] = 1
+while(queue):
+    i,j,index = queue.popleft()
+    if not index:
+        output += visit[i][j][index]
+        continue
+    for k in range(1,K+1):
+        if 0<=i-k and graph[i-k][j]==word[index-1]:
+            if not visit[i-k][j][index-1]:
+                queue.append([i-k,j,index-1])
+            visit[i-k][j][index-1] += visit[i][j][index]
+        if 0<=j-k and graph[i][j-k]==word[index-1]:
+            if not visit[i][j-k][index-1]:
+                queue.append([i,j-k,index-1])
+            visit[i][j-k][index-1] += visit[i][j][index]
+        if i+k<N and graph[i+k][j]==word[index-1]:
+            if not visit[i+k][j][index-1]:
+                queue.append([i+k,j,index-1])
+            visit[i+k][j][index-1] += visit[i][j][index]
+        if j+k<M and graph[i][j+k]==word[index-1]:
+            if not visit[i][j+k][index-1]:
+                queue.append([i,j+k,index-1])
+            visit[i][j+k][index-1] += visit[i][j][index]
+
+print(output)
+
 #1 BFS python 시간초과 pypy메모리초과
 import sys, collections
 # input = sys.stdin.readline
