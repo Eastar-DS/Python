@@ -10,3 +10,9 @@ def dfs(index,nums):
 
 N,M = map(int,input().split())
 dfs(0,[])
+
+#2 combinations
+import itertools 
+N,M = map(int,input().split())
+for com in itertools.combinations_with_replacement(map(str,range(1,N+1)),M):
+    print(' '.join(com))
